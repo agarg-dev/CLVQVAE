@@ -41,6 +41,10 @@ CLVQVAE/
 2. Install the required dependencies
 3. Prepare your data directory with embeddings
 
+### Prepare your dataset:
+
+The dataset information can be downloaded from this [Dropbox link](https://www.dropbox.com/scl/fo/hre4iczg0dpz2vs5p2vcx/AGg_naici_1m2Vt3waLoTOg?rlkey=myzedcpmjywm7h8ksjogkgg7x&st=w4kojso4&dl=0)
+
 ### Running the Full Pipeline
 
 ```bash
