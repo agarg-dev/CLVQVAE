@@ -1,0 +1,9 @@
+models/*
+data/eraser-movie/dev/embedding/*
+data/eraser-movie/train/embedding/*
+data/jigsaw/train/embedding/*
+data/jigsaw/dev/embedding/*
+concepts/*
+output/*
+my_key
+my_key.pub

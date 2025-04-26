@@ -1,0 +1,60 @@
+Layer Configs: initialization: spherical, K:400, input_layer:8, output_layer:12, temperature:1, top_k:5
+Running faithfulness measurement on model
+Analysis Layer: 8
+VQC Layer Config: 8_12_encoder_temp1_k5_spherical_K400
+Using device: cpu
+Loaded 856 sentences and 856 ground truth labels
+Found 856 unique sentence IDs in token map
+Loaded model: ../models/glue-eraser-movie-roberta
+
+Extracting CLS token embeddings...
+
+Creating perturbed CLS token embeddings using orthogonal projection...
+Applied orthogonal projection to remove concept directions from 856 embeddings
+
+Creating perturbed CLS token embeddings with random orthogonal projection...
+Applied random concept direction removal to 856 embeddings
+
+Training model on original CLS embeddings and evaluating on all embedding types:
+
+Training with 20-fold cross-validation...
+Fold 1/20: Normal CLS: 0.7209, Perturbed CLS: 0.0698, Random Perturbed CLS: 0.7209 (after 7 epochs)
+Fold 2/20: Normal CLS: 0.7442, Perturbed CLS: 0.0930, Random Perturbed CLS: 0.7907 (after 11 epochs)
+Fold 3/20: Normal CLS: 0.8837, Perturbed CLS: 0.0465, Random Perturbed CLS: 0.7907 (after 13 epochs)
+Fold 4/20: Normal CLS: 0.9535, Perturbed CLS: 0.0465, Random Perturbed CLS: 0.8837 (after 12 epochs)
+Fold 5/20: Normal CLS: 0.9535, Perturbed CLS: 0.0698, Random Perturbed CLS: 0.8837 (after 14 epochs)
+Fold 6/20: Normal CLS: 0.9767, Perturbed CLS: 0.0233, Random Perturbed CLS: 0.9070 (after 13 epochs)
+Fold 7/20: Normal CLS: 0.9070, Perturbed CLS: 0.0465, Random Perturbed CLS: 0.8372 (after 8 epochs)
+Fold 8/20: Normal CLS: 0.9302, Perturbed CLS: 0.0698, Random Perturbed CLS: 0.7907 (after 15 epochs)
+Fold 9/20: Normal CLS: 0.8837, Perturbed CLS: 0.0930, Random Perturbed CLS: 0.8372 (after 17 epochs)
+Fold 10/20: Normal CLS: 0.9070, Perturbed CLS: 0.1395, Random Perturbed CLS: 0.7674 (after 9 epochs)
+Fold 11/20: Normal CLS: 0.9767, Perturbed CLS: 0.0465, Random Perturbed CLS: 1.0000 (after 12 epochs)
+Fold 12/20: Normal CLS: 0.7674, Perturbed CLS: 0.1163, Random Perturbed CLS: 0.6744 (after 11 epochs)
+Fold 13/20: Normal CLS: 0.9302, Perturbed CLS: 0.0233, Random Perturbed CLS: 0.8605 (after 9 epochs)
+Fold 14/20: Normal CLS: 0.8605, Perturbed CLS: 0.1163, Random Perturbed CLS: 0.8837 (after 11 epochs)
+Fold 15/20: Normal CLS: 0.9535, Perturbed CLS: 0.0233, Random Perturbed CLS: 0.8140 (after 7 epochs)
+Fold 16/20: Normal CLS: 0.8837, Perturbed CLS: 0.0465, Random Perturbed CLS: 0.8605 (after 17 epochs)
+Fold 17/20: Normal CLS: 0.9286, Perturbed CLS: 0.0000, Random Perturbed CLS: 0.8810 (after 15 epochs)
+Fold 18/20: Normal CLS: 0.9524, Perturbed CLS: 0.0238, Random Perturbed CLS: 0.8333 (after 9 epochs)
+Fold 19/20: Normal CLS: 0.9048, Perturbed CLS: 0.0238, Random Perturbed CLS: 0.7381 (after 7 epochs)
+Fold 20/20: Normal CLS: 0.8810, Perturbed CLS: 0.0476, Random Perturbed CLS: 0.8571 (after 9 epochs)
+
+Normal CLS Results:
+Mean Accuracy: 0.8950 ± 0.0714
+
+Perturbed CLS Results:
+Mean Accuracy: 0.0583 ± 0.0363
+
+Random Perturbed CLS Results:
+Mean Accuracy: 0.8306 ± 0.0715
+
+Comparison of Cross-Validation Accuracy:
+Normal CLS embeddings: 0.8950 ± 0.0714
+Perturbed CLS embeddings: 0.0583 ± 0.0363
+Random Perturbed CLS embeddings: 0.8306 ± 0.0715
+Specific perturbation effect: 0.8367
+Random perturbation effect: 0.0644
+Specific vs Random difference: 0.7723
+
+Results saved to ../faithfulness_results
+Results saved to ../faithfulness_results

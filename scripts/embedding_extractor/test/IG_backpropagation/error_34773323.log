@@ -1,0 +1,5 @@
+DEPRECATION: Loading egg at /home/ankur.garg1/.conda/envs/CLVQVAE_same/lib/python3.12/site-packages/huggingface_hub-0.29.2-py3.8.egg is deprecated. pip 25.1 will enforce this behaviour change. A possible replacement is to use pip for package installation. Discussion can be found at https://github.com/pypa/pip/issues/12330
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+datasets 3.5.0 requires dill<0.3.9,>=0.3.0, but you have dill 0.4.0 which is incompatible.
+datasets 3.5.0 requires multiprocess<0.70.17, but you have multiprocess 0.70.18 which is incompatible.
+mkdir: cannot create directory ‘../../../../data/eraser-movie/dev/IG_attributions’: File exists

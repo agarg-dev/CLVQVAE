@@ -1,0 +1,1058 @@
+Layer Configs: initialization: spherical, K:400, input_layer:8, output_layer:12, temperature:1, top_k:5
+===== Training VQC model =====
+input_embedding_dim: 768
+output_embedding_dim: 768
+input shape: 81456
+output shape: 81456
+torch.Size([13878, 61, 768])
+Initializing codebook vectors using Spherical K-means++ with cluster-specific scaling...
+Total input vectors for initialization: 81456
+Codebook initialized with 400 vectors using Spherical K-means++
+Cluster size statistics: min=13, max=13878, average=203.6
+Magnitude statistics: min=23.11, max=27.15, average=24.48
+Mean cosine similarity between codebook vectors: 0.8502
+
+Epoch 1/50, batches: 98
+  Training batch 0: loss=0.9180, recon_error=0.8897, vq_loss=0.0283, , perplexity_loss=-1.4321
+  Training batch 10: loss=1.2503, recon_error=1.2385, vq_loss=0.0117, , perplexity_loss=-2.3361
+  Training batch 20: loss=0.6384, recon_error=0.6280, vq_loss=0.0104, , perplexity_loss=-2.0411
+  Training batch 30: loss=0.4383, recon_error=0.4283, vq_loss=0.0099, , perplexity_loss=-2.0802
+  Training batch 40: loss=0.4120, recon_error=0.4021, vq_loss=0.0099, , perplexity_loss=-2.2253
+  Training batch 50: loss=0.4283, recon_error=0.4188, vq_loss=0.0095, , perplexity_loss=-2.2390
+  Training batch 60: loss=0.4191, recon_error=0.4091, vq_loss=0.0100, , perplexity_loss=-2.3542
+  Training batch 70: loss=0.3861, recon_error=0.3764, vq_loss=0.0096, , perplexity_loss=-2.3191
+  Training batch 80: loss=0.4980, recon_error=0.4888, vq_loss=0.0093, , perplexity_loss=-2.4881
+  Training batch 90: loss=0.4246, recon_error=0.4155, vq_loss=0.0091, , perplexity_loss=-2.5801
+  Validation batch 0: loss=0.4177, recon_error=0.4085, vq_loss=0.0092, perplexity_loss=-2.5452
+  Validation batch 10: loss=0.3877, recon_error=0.3783, vq_loss=0.0094, perplexity_loss=-2.6037
+Epoch 1, Train Loss: 0.709, Train Reconstruct Loss: 0.699, Train VQ Loss: 0.010, Train Perplexity Loss: -2.435, Dev Loss: 0.404, Dev Reconstruct Loss: 0.394, Dev VQ Loss: 0.009, Dev Perplexity Loss: -2.605, 
+Training Perplexity: 13.514
+cosine_mean_similarity: 0.851
+euclidean_mean_distance: 12.700
+Codebook details: 400/400 vectors used
+Usage counts - Min: 1.0, Max: 15390.0
+Best model updated and saved at epoch 1
+
+Epoch 2/50, batches: 98
+  Training batch 0: loss=0.3516, recon_error=0.3420, vq_loss=0.0095, , perplexity_loss=-2.6048
+  Training batch 10: loss=0.4116, recon_error=0.4024, vq_loss=0.0092, , perplexity_loss=-2.7503
+  Training batch 20: loss=0.4068, recon_error=0.3975, vq_loss=0.0093, , perplexity_loss=-2.7747
+  Training batch 30: loss=0.4665, recon_error=0.4576, vq_loss=0.0089, , perplexity_loss=-2.9527
+  Training batch 40: loss=0.3588, recon_error=0.3498, vq_loss=0.0090, , perplexity_loss=-3.0924
+  Training batch 50: loss=0.1918, recon_error=0.1827, vq_loss=0.0091, , perplexity_loss=-3.3581
+  Training batch 60: loss=0.1344, recon_error=0.1253, vq_loss=0.0090, , perplexity_loss=-3.7350
+  Training batch 70: loss=0.1141, recon_error=0.1049, vq_loss=0.0092, , perplexity_loss=-3.8386
+  Training batch 80: loss=0.1244, recon_error=0.1152, vq_loss=0.0091, , perplexity_loss=-4.0311
+  Training batch 90: loss=0.0748, recon_error=0.0668, vq_loss=0.0080, , perplexity_loss=-4.0284
+  Validation batch 0: loss=0.0736, recon_error=0.0652, vq_loss=0.0084, perplexity_loss=-4.0745
+  Validation batch 10: loss=0.0773, recon_error=0.0687, vq_loss=0.0086, perplexity_loss=-4.1205
+Epoch 2, Train Loss: 0.255, Train Reconstruct Loss: 0.246, Train VQ Loss: 0.009, Train Perplexity Loss: -3.365, Dev Loss: 0.077, Dev Reconstruct Loss: 0.068, Dev VQ Loss: 0.008, Dev Perplexity Loss: -4.160, 
+Training Perplexity: 61.588
+cosine_mean_similarity: 0.851
+euclidean_mean_distance: 11.807
+Codebook details: 341/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+Best model updated and saved at epoch 2
+
+Epoch 3/50, batches: 98
+  Training batch 0: loss=0.0802, recon_error=0.0719, vq_loss=0.0083, , perplexity_loss=-4.2036
+  Training batch 10: loss=0.0823, recon_error=0.0737, vq_loss=0.0086, , perplexity_loss=-4.3773
+  Training batch 20: loss=0.0832, recon_error=0.0749, vq_loss=0.0083, , perplexity_loss=-4.4712
+  Training batch 30: loss=0.0636, recon_error=0.0556, vq_loss=0.0081, , perplexity_loss=-4.4525
+  Training batch 40: loss=0.0630, recon_error=0.0550, vq_loss=0.0080, , perplexity_loss=-4.4427
+  Training batch 50: loss=0.0784, recon_error=0.0702, vq_loss=0.0082, , perplexity_loss=-4.5003
+  Training batch 60: loss=0.0685, recon_error=0.0613, vq_loss=0.0072, , perplexity_loss=-4.4791
+  Training batch 70: loss=0.0743, recon_error=0.0667, vq_loss=0.0076, , perplexity_loss=-4.5845
+  Training batch 80: loss=0.0593, recon_error=0.0518, vq_loss=0.0075, , perplexity_loss=-4.5861
+  Training batch 90: loss=0.0840, recon_error=0.0767, vq_loss=0.0074, , perplexity_loss=-4.6181
+  Validation batch 0: loss=0.0648, recon_error=0.0572, vq_loss=0.0076, perplexity_loss=-4.7173
+  Validation batch 10: loss=0.0623, recon_error=0.0546, vq_loss=0.0076, perplexity_loss=-4.6416
+Epoch 3, Train Loss: 0.076, Train Reconstruct Loss: 0.068, Train VQ Loss: 0.008, Train Perplexity Loss: -4.496, Dev Loss: 0.067, Dev Reconstruct Loss: 0.060, Dev VQ Loss: 0.008, Dev Perplexity Loss: -4.694, 
+Training Perplexity: 103.708
+cosine_mean_similarity: 0.873
+euclidean_mean_distance: 10.276
+Codebook details: 358/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+Best model updated and saved at epoch 3
+
+Epoch 4/50, batches: 98
+  Training batch 0: loss=0.0639, recon_error=0.0565, vq_loss=0.0074, , perplexity_loss=-4.6009
+  Training batch 10: loss=0.0789, recon_error=0.0714, vq_loss=0.0075, , perplexity_loss=-4.7323
+  Training batch 20: loss=0.0680, recon_error=0.0604, vq_loss=0.0076, , perplexity_loss=-4.8524
+  Training batch 30: loss=0.0657, recon_error=0.0585, vq_loss=0.0072, , perplexity_loss=-4.7245
+  Training batch 40: loss=0.0629, recon_error=0.0555, vq_loss=0.0073, , perplexity_loss=-4.6537
+  Training batch 50: loss=0.0615, recon_error=0.0542, vq_loss=0.0073, , perplexity_loss=-4.7537
+  Training batch 60: loss=0.0585, recon_error=0.0508, vq_loss=0.0076, , perplexity_loss=-4.9129
+  Training batch 70: loss=0.0629, recon_error=0.0557, vq_loss=0.0072, , perplexity_loss=-4.7587
+  Training batch 80: loss=0.0610, recon_error=0.0540, vq_loss=0.0070, , perplexity_loss=-4.7556
+  Training batch 90: loss=0.0550, recon_error=0.0480, vq_loss=0.0070, , perplexity_loss=-4.8267
+  Validation batch 0: loss=0.0541, recon_error=0.0470, vq_loss=0.0070, perplexity_loss=-4.8000
+  Validation batch 10: loss=0.0571, recon_error=0.0500, vq_loss=0.0071, perplexity_loss=-4.7326
+Epoch 4, Train Loss: 0.066, Train Reconstruct Loss: 0.059, Train VQ Loss: 0.007, Train Perplexity Loss: -4.754, Dev Loss: 0.060, Dev Reconstruct Loss: 0.052, Dev VQ Loss: 0.007, Dev Perplexity Loss: -4.778, 
+Training Perplexity: 113.587
+cosine_mean_similarity: 0.885
+euclidean_mean_distance: 9.622
+Codebook details: 366/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+Best model updated and saved at epoch 4
+
+Epoch 5/50, batches: 98
+  Training batch 0: loss=0.0594, recon_error=0.0523, vq_loss=0.0071, , perplexity_loss=-4.8090
+  Training batch 10: loss=0.0633, recon_error=0.0560, vq_loss=0.0073, , perplexity_loss=-4.9887
+  Training batch 20: loss=0.0547, recon_error=0.0478, vq_loss=0.0069, , perplexity_loss=-4.7999
+  Training batch 30: loss=0.0534, recon_error=0.0465, vq_loss=0.0069, , perplexity_loss=-4.7678
+  Training batch 40: loss=0.0627, recon_error=0.0560, vq_loss=0.0067, , perplexity_loss=-4.8410
+  Training batch 50: loss=0.0856, recon_error=0.0782, vq_loss=0.0073, , perplexity_loss=-4.9018
+  Training batch 60: loss=0.0519, recon_error=0.0451, vq_loss=0.0068, , perplexity_loss=-4.8694
+  Training batch 70: loss=0.0524, recon_error=0.0455, vq_loss=0.0070, , perplexity_loss=-4.8632
+  Training batch 80: loss=0.0611, recon_error=0.0543, vq_loss=0.0067, , perplexity_loss=-4.7511
+  Training batch 90: loss=0.0517, recon_error=0.0451, vq_loss=0.0066, , perplexity_loss=-4.9116
+  Validation batch 0: loss=0.0555, recon_error=0.0487, vq_loss=0.0068, perplexity_loss=-4.8475
+  Validation batch 10: loss=0.0654, recon_error=0.0585, vq_loss=0.0069, perplexity_loss=-4.7726
+Epoch 5, Train Loss: 0.059, Train Reconstruct Loss: 0.053, Train VQ Loss: 0.007, Train Perplexity Loss: -4.823, Dev Loss: 0.063, Dev Reconstruct Loss: 0.056, Dev VQ Loss: 0.007, Dev Perplexity Loss: -4.827, 
+Training Perplexity: 118.223
+cosine_mean_similarity: 0.888
+euclidean_mean_distance: 9.408
+Codebook details: 384/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 6/50, batches: 98
+  Training batch 0: loss=0.0656, recon_error=0.0589, vq_loss=0.0067, , perplexity_loss=-4.8164
+  Training batch 10: loss=0.0590, recon_error=0.0521, vq_loss=0.0069, , perplexity_loss=-4.8756
+  Training batch 20: loss=0.0632, recon_error=0.0564, vq_loss=0.0068, , perplexity_loss=-4.8538
+  Training batch 30: loss=0.0673, recon_error=0.0604, vq_loss=0.0069, , perplexity_loss=-4.9296
+  Training batch 40: loss=0.0525, recon_error=0.0458, vq_loss=0.0067, , perplexity_loss=-4.8573
+  Training batch 50: loss=0.0510, recon_error=0.0441, vq_loss=0.0069, , perplexity_loss=-4.9546
+  Training batch 60: loss=0.0520, recon_error=0.0450, vq_loss=0.0070, , perplexity_loss=-4.9562
+  Training batch 70: loss=0.0507, recon_error=0.0439, vq_loss=0.0068, , perplexity_loss=-4.9154
+  Training batch 80: loss=0.0661, recon_error=0.0594, vq_loss=0.0067, , perplexity_loss=-4.7253
+  Training batch 90: loss=0.0597, recon_error=0.0529, vq_loss=0.0068, , perplexity_loss=-4.8687
+  Validation batch 0: loss=0.0586, recon_error=0.0518, vq_loss=0.0067, perplexity_loss=-4.8998
+  Validation batch 10: loss=0.0578, recon_error=0.0510, vq_loss=0.0068, perplexity_loss=-4.7975
+Epoch 6, Train Loss: 0.058, Train Reconstruct Loss: 0.051, Train VQ Loss: 0.007, Train Perplexity Loss: -4.863, Dev Loss: 0.061, Dev Reconstruct Loss: 0.054, Dev VQ Loss: 0.007, Dev Perplexity Loss: -4.848, 
+Training Perplexity: 121.204
+cosine_mean_similarity: 0.889
+euclidean_mean_distance: 9.269
+Codebook details: 388/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 7/50, batches: 98
+  Training batch 0: loss=0.0528, recon_error=0.0461, vq_loss=0.0067, , perplexity_loss=-4.9327
+  Training batch 10: loss=0.0459, recon_error=0.0393, vq_loss=0.0066, , perplexity_loss=-5.0015
+  Training batch 20: loss=0.0482, recon_error=0.0416, vq_loss=0.0066, , perplexity_loss=-4.9379
+  Training batch 30: loss=0.0589, recon_error=0.0523, vq_loss=0.0066, , perplexity_loss=-4.9061
+  Training batch 40: loss=0.0568, recon_error=0.0498, vq_loss=0.0070, , perplexity_loss=-4.9992
+  Training batch 50: loss=0.0585, recon_error=0.0517, vq_loss=0.0068, , perplexity_loss=-4.7783
+  Training batch 60: loss=0.0568, recon_error=0.0502, vq_loss=0.0066, , perplexity_loss=-4.7184
+  Training batch 70: loss=0.0612, recon_error=0.0547, vq_loss=0.0065, , perplexity_loss=-4.7561
+  Training batch 80: loss=0.0446, recon_error=0.0379, vq_loss=0.0067, , perplexity_loss=-5.0535
+  Training batch 90: loss=0.0440, recon_error=0.0373, vq_loss=0.0067, , perplexity_loss=-4.8894
+  Validation batch 0: loss=0.0525, recon_error=0.0459, vq_loss=0.0067, perplexity_loss=-4.9083
+  Validation batch 10: loss=0.0516, recon_error=0.0448, vq_loss=0.0067, perplexity_loss=-4.7993
+Epoch 7, Train Loss: 0.056, Train Reconstruct Loss: 0.049, Train VQ Loss: 0.007, Train Perplexity Loss: -4.873, Dev Loss: 0.054, Dev Reconstruct Loss: 0.048, Dev VQ Loss: 0.007, Dev Perplexity Loss: -4.863, 
+Training Perplexity: 121.426
+cosine_mean_similarity: 0.890
+euclidean_mean_distance: 9.162
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+Best model updated and saved at epoch 7
+
+Epoch 8/50, batches: 98
+  Training batch 0: loss=0.0500, recon_error=0.0437, vq_loss=0.0063, , perplexity_loss=-4.7600
+  Training batch 10: loss=0.0470, recon_error=0.0403, vq_loss=0.0067, , perplexity_loss=-4.9449
+  Training batch 20: loss=0.0465, recon_error=0.0398, vq_loss=0.0067, , perplexity_loss=-4.9445
+  Training batch 30: loss=0.0523, recon_error=0.0456, vq_loss=0.0067, , perplexity_loss=-4.8092
+  Training batch 40: loss=0.0428, recon_error=0.0362, vq_loss=0.0066, , perplexity_loss=-4.9822
+  Training batch 50: loss=0.0746, recon_error=0.0679, vq_loss=0.0067, , perplexity_loss=-4.8949
+  Training batch 60: loss=0.0571, recon_error=0.0506, vq_loss=0.0065, , perplexity_loss=-4.8721
+  Training batch 70: loss=0.0542, recon_error=0.0475, vq_loss=0.0067, , perplexity_loss=-4.8452
+  Training batch 80: loss=0.0526, recon_error=0.0461, vq_loss=0.0065, , perplexity_loss=-4.8306
+  Training batch 90: loss=0.0611, recon_error=0.0543, vq_loss=0.0067, , perplexity_loss=-4.9014
+  Validation batch 0: loss=0.0513, recon_error=0.0447, vq_loss=0.0066, perplexity_loss=-4.9154
+  Validation batch 10: loss=0.0529, recon_error=0.0461, vq_loss=0.0067, perplexity_loss=-4.8059
+Epoch 8, Train Loss: 0.053, Train Reconstruct Loss: 0.047, Train VQ Loss: 0.007, Train Perplexity Loss: -4.884, Dev Loss: 0.054, Dev Reconstruct Loss: 0.047, Dev VQ Loss: 0.007, Dev Perplexity Loss: -4.868, 
+Training Perplexity: 122.233
+cosine_mean_similarity: 0.891
+euclidean_mean_distance: 9.056
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+Best model updated and saved at epoch 8
+
+Epoch 9/50, batches: 98
+  Training batch 0: loss=0.0563, recon_error=0.0498, vq_loss=0.0065, , perplexity_loss=-4.8268
+  Training batch 10: loss=0.0553, recon_error=0.0489, vq_loss=0.0064, , perplexity_loss=-4.8792
+  Training batch 20: loss=0.0521, recon_error=0.0454, vq_loss=0.0068, , perplexity_loss=-5.0444
+  Training batch 30: loss=0.0503, recon_error=0.0438, vq_loss=0.0066, , perplexity_loss=-4.9255
+  Training batch 40: loss=0.0638, recon_error=0.0572, vq_loss=0.0066, , perplexity_loss=-4.8906
+  Training batch 50: loss=0.0593, recon_error=0.0525, vq_loss=0.0068, , perplexity_loss=-4.9609
+  Training batch 60: loss=0.0432, recon_error=0.0368, vq_loss=0.0065, , perplexity_loss=-4.9362
+  Training batch 70: loss=0.0620, recon_error=0.0554, vq_loss=0.0066, , perplexity_loss=-4.8223
+  Training batch 80: loss=0.0504, recon_error=0.0438, vq_loss=0.0066, , perplexity_loss=-4.8859
+  Training batch 90: loss=0.0500, recon_error=0.0435, vq_loss=0.0065, , perplexity_loss=-5.0022
+  Validation batch 0: loss=0.0465, recon_error=0.0398, vq_loss=0.0066, perplexity_loss=-4.9321
+  Validation batch 10: loss=0.0520, recon_error=0.0453, vq_loss=0.0067, perplexity_loss=-4.7979
+Epoch 9, Train Loss: 0.052, Train Reconstruct Loss: 0.046, Train VQ Loss: 0.007, Train Perplexity Loss: -4.894, Dev Loss: 0.052, Dev Reconstruct Loss: 0.046, Dev VQ Loss: 0.007, Dev Perplexity Loss: -4.878, 
+Training Perplexity: 121.252
+cosine_mean_similarity: 0.892
+euclidean_mean_distance: 8.953
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+Best model updated and saved at epoch 9
+
+Epoch 10/50, batches: 98
+  Training batch 0: loss=0.0515, recon_error=0.0453, vq_loss=0.0062, , perplexity_loss=-4.7853
+  Training batch 10: loss=0.0624, recon_error=0.0557, vq_loss=0.0067, , perplexity_loss=-5.0004
+  Training batch 20: loss=0.0492, recon_error=0.0427, vq_loss=0.0066, , perplexity_loss=-4.9746
+  Training batch 30: loss=0.0624, recon_error=0.0558, vq_loss=0.0066, , perplexity_loss=-4.8189
+  Training batch 40: loss=0.0521, recon_error=0.0455, vq_loss=0.0066, , perplexity_loss=-5.0175
+  Training batch 50: loss=0.0562, recon_error=0.0498, vq_loss=0.0064, , perplexity_loss=-4.8581
+  Training batch 60: loss=0.0597, recon_error=0.0531, vq_loss=0.0066, , perplexity_loss=-4.9598
+  Training batch 70: loss=0.0449, recon_error=0.0384, vq_loss=0.0065, , perplexity_loss=-4.9953
+  Training batch 80: loss=0.0578, recon_error=0.0515, vq_loss=0.0062, , perplexity_loss=-4.7788
+  Training batch 90: loss=0.0497, recon_error=0.0433, vq_loss=0.0064, , perplexity_loss=-4.8660
+  Validation batch 0: loss=0.0486, recon_error=0.0420, vq_loss=0.0066, perplexity_loss=-4.9243
+  Validation batch 10: loss=0.0601, recon_error=0.0535, vq_loss=0.0066, perplexity_loss=-4.8057
+Epoch 10, Train Loss: 0.052, Train Reconstruct Loss: 0.046, Train VQ Loss: 0.007, Train Perplexity Loss: -4.890, Dev Loss: 0.053, Dev Reconstruct Loss: 0.047, Dev VQ Loss: 0.007, Dev Perplexity Loss: -4.873, 
+Training Perplexity: 122.208
+cosine_mean_similarity: 0.892
+euclidean_mean_distance: 8.886
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 11/50, batches: 98
+  Training batch 0: loss=0.0435, recon_error=0.0372, vq_loss=0.0063, , perplexity_loss=-4.9057
+  Training batch 10: loss=0.0587, recon_error=0.0527, vq_loss=0.0061, , perplexity_loss=-4.7614
+  Training batch 20: loss=0.0461, recon_error=0.0399, vq_loss=0.0062, , perplexity_loss=-4.8268
+  Training batch 30: loss=0.0521, recon_error=0.0455, vq_loss=0.0066, , perplexity_loss=-4.9152
+  Training batch 40: loss=0.0470, recon_error=0.0407, vq_loss=0.0063, , perplexity_loss=-4.8876
+  Training batch 50: loss=0.0585, recon_error=0.0519, vq_loss=0.0067, , perplexity_loss=-4.8944
+  Training batch 60: loss=0.0509, recon_error=0.0442, vq_loss=0.0067, , perplexity_loss=-4.9855
+  Training batch 70: loss=0.0471, recon_error=0.0405, vq_loss=0.0066, , perplexity_loss=-4.9256
+  Training batch 80: loss=0.0570, recon_error=0.0507, vq_loss=0.0063, , perplexity_loss=-4.7708
+  Training batch 90: loss=0.0500, recon_error=0.0436, vq_loss=0.0065, , perplexity_loss=-4.9704
+  Validation batch 0: loss=0.0534, recon_error=0.0469, vq_loss=0.0065, perplexity_loss=-4.9164
+  Validation batch 10: loss=0.0545, recon_error=0.0479, vq_loss=0.0066, perplexity_loss=-4.7893
+Epoch 11, Train Loss: 0.050, Train Reconstruct Loss: 0.044, Train VQ Loss: 0.006, Train Perplexity Loss: -4.894, Dev Loss: 0.056, Dev Reconstruct Loss: 0.050, Dev VQ Loss: 0.007, Dev Perplexity Loss: -4.875, 
+Training Perplexity: 120.222
+cosine_mean_similarity: 0.893
+euclidean_mean_distance: 8.821
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 12/50, batches: 98
+  Training batch 0: loss=0.0549, recon_error=0.0484, vq_loss=0.0065, , perplexity_loss=-4.8443
+  Training batch 10: loss=0.0560, recon_error=0.0495, vq_loss=0.0064, , perplexity_loss=-4.9020
+  Training batch 20: loss=0.0510, recon_error=0.0445, vq_loss=0.0065, , perplexity_loss=-4.9839
+  Training batch 30: loss=0.0448, recon_error=0.0384, vq_loss=0.0064, , perplexity_loss=-4.8771
+  Training batch 40: loss=0.0561, recon_error=0.0497, vq_loss=0.0064, , perplexity_loss=-4.9235
+  Training batch 50: loss=0.0556, recon_error=0.0495, vq_loss=0.0061, , perplexity_loss=-4.8135
+  Training batch 60: loss=0.0479, recon_error=0.0417, vq_loss=0.0062, , perplexity_loss=-4.7718
+  Training batch 70: loss=0.0492, recon_error=0.0433, vq_loss=0.0059, , perplexity_loss=-4.7471
+  Training batch 80: loss=0.0494, recon_error=0.0431, vq_loss=0.0063, , perplexity_loss=-4.9338
+  Training batch 90: loss=0.0480, recon_error=0.0420, vq_loss=0.0060, , perplexity_loss=-4.8746
+  Validation batch 0: loss=0.0456, recon_error=0.0392, vq_loss=0.0065, perplexity_loss=-4.9206
+  Validation batch 10: loss=0.0550, recon_error=0.0485, vq_loss=0.0065, perplexity_loss=-4.8077
+Epoch 12, Train Loss: 0.052, Train Reconstruct Loss: 0.045, Train VQ Loss: 0.006, Train Perplexity Loss: -4.897, Dev Loss: 0.054, Dev Reconstruct Loss: 0.047, Dev VQ Loss: 0.006, Dev Perplexity Loss: -4.879, 
+Training Perplexity: 122.444
+cosine_mean_similarity: 0.893
+euclidean_mean_distance: 8.765
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 13/50, batches: 98
+  Training batch 0: loss=0.0473, recon_error=0.0411, vq_loss=0.0062, , perplexity_loss=-4.9162
+  Training batch 10: loss=0.0609, recon_error=0.0547, vq_loss=0.0062, , perplexity_loss=-4.7243
+  Training batch 20: loss=0.0501, recon_error=0.0436, vq_loss=0.0065, , perplexity_loss=-4.9158
+  Training batch 30: loss=0.0649, recon_error=0.0588, vq_loss=0.0061, , perplexity_loss=-4.8138
+  Training batch 40: loss=0.0420, recon_error=0.0358, vq_loss=0.0062, , perplexity_loss=-4.8691
+  Training batch 50: loss=0.0423, recon_error=0.0361, vq_loss=0.0063, , perplexity_loss=-4.8054
+  Training batch 60: loss=0.0554, recon_error=0.0491, vq_loss=0.0063, , perplexity_loss=-4.8814
+  Training batch 70: loss=0.0488, recon_error=0.0425, vq_loss=0.0064, , perplexity_loss=-4.9719
+  Training batch 80: loss=0.0475, recon_error=0.0411, vq_loss=0.0064, , perplexity_loss=-4.9117
+  Training batch 90: loss=0.0649, recon_error=0.0582, vq_loss=0.0067, , perplexity_loss=-4.9468
+  Validation batch 0: loss=0.0472, recon_error=0.0407, vq_loss=0.0064, perplexity_loss=-4.9267
+  Validation batch 10: loss=0.0483, recon_error=0.0418, vq_loss=0.0065, perplexity_loss=-4.7946
+Epoch 13, Train Loss: 0.050, Train Reconstruct Loss: 0.044, Train VQ Loss: 0.006, Train Perplexity Loss: -4.898, Dev Loss: 0.050, Dev Reconstruct Loss: 0.044, Dev VQ Loss: 0.006, Dev Perplexity Loss: -4.881, 
+Training Perplexity: 120.853
+cosine_mean_similarity: 0.894
+euclidean_mean_distance: 8.713
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+Best model updated and saved at epoch 13
+
+Epoch 14/50, batches: 98
+  Training batch 0: loss=0.0405, recon_error=0.0342, vq_loss=0.0063, , perplexity_loss=-4.9001
+  Training batch 10: loss=0.0560, recon_error=0.0495, vq_loss=0.0065, , perplexity_loss=-4.9689
+  Training batch 20: loss=0.0484, recon_error=0.0418, vq_loss=0.0067, , perplexity_loss=-5.0392
+  Training batch 30: loss=0.0452, recon_error=0.0389, vq_loss=0.0063, , perplexity_loss=-4.8998
+  Training batch 40: loss=0.0552, recon_error=0.0490, vq_loss=0.0062, , perplexity_loss=-4.8954
+  Training batch 50: loss=0.0541, recon_error=0.0476, vq_loss=0.0065, , perplexity_loss=-4.7629
+  Training batch 60: loss=0.0474, recon_error=0.0409, vq_loss=0.0065, , perplexity_loss=-5.0476
+  Training batch 70: loss=0.0553, recon_error=0.0491, vq_loss=0.0063, , perplexity_loss=-4.8725
+  Training batch 80: loss=0.0507, recon_error=0.0442, vq_loss=0.0065, , perplexity_loss=-4.8943
+  Training batch 90: loss=0.0486, recon_error=0.0423, vq_loss=0.0063, , perplexity_loss=-4.8818
+  Validation batch 0: loss=0.0445, recon_error=0.0381, vq_loss=0.0064, perplexity_loss=-4.9259
+  Validation batch 10: loss=0.0481, recon_error=0.0417, vq_loss=0.0065, perplexity_loss=-4.7935
+Epoch 14, Train Loss: 0.048, Train Reconstruct Loss: 0.042, Train VQ Loss: 0.006, Train Perplexity Loss: -4.904, Dev Loss: 0.048, Dev Reconstruct Loss: 0.042, Dev VQ Loss: 0.006, Dev Perplexity Loss: -4.880, 
+Training Perplexity: 120.727
+cosine_mean_similarity: 0.895
+euclidean_mean_distance: 8.674
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+Best model updated and saved at epoch 14
+
+Epoch 15/50, batches: 98
+  Training batch 0: loss=0.0396, recon_error=0.0334, vq_loss=0.0062, , perplexity_loss=-4.8577
+  Training batch 10: loss=0.0506, recon_error=0.0442, vq_loss=0.0064, , perplexity_loss=-4.8976
+  Training batch 20: loss=0.0396, recon_error=0.0334, vq_loss=0.0062, , perplexity_loss=-4.9406
+  Training batch 30: loss=0.0543, recon_error=0.0480, vq_loss=0.0063, , perplexity_loss=-4.8658
+  Training batch 40: loss=0.0404, recon_error=0.0339, vq_loss=0.0064, , perplexity_loss=-4.9985
+  Training batch 50: loss=0.0573, recon_error=0.0511, vq_loss=0.0063, , perplexity_loss=-4.8223
+  Training batch 60: loss=0.0887, recon_error=0.0825, vq_loss=0.0062, , perplexity_loss=-4.7281
+  Training batch 70: loss=0.0911, recon_error=0.0842, vq_loss=0.0068, , perplexity_loss=-4.9559
+  Training batch 80: loss=0.0610, recon_error=0.0542, vq_loss=0.0068, , perplexity_loss=-4.9731
+  Training batch 90: loss=0.0588, recon_error=0.0523, vq_loss=0.0065, , perplexity_loss=-4.9405
+  Validation batch 0: loss=0.0560, recon_error=0.0495, vq_loss=0.0065, perplexity_loss=-4.9223
+  Validation batch 10: loss=0.0662, recon_error=0.0596, vq_loss=0.0066, perplexity_loss=-4.7613
+Epoch 15, Train Loss: 0.057, Train Reconstruct Loss: 0.051, Train VQ Loss: 0.006, Train Perplexity Loss: -4.898, Dev Loss: 0.061, Dev Reconstruct Loss: 0.055, Dev VQ Loss: 0.006, Dev Perplexity Loss: -4.866, 
+Training Perplexity: 116.898
+cosine_mean_similarity: 0.891
+euclidean_mean_distance: 8.687
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 16/50, batches: 98
+  Training batch 0: loss=0.0499, recon_error=0.0433, vq_loss=0.0066, , perplexity_loss=-5.0001
+  Training batch 10: loss=0.0552, recon_error=0.0485, vq_loss=0.0066, , perplexity_loss=-4.9984
+  Training batch 20: loss=0.0575, recon_error=0.0514, vq_loss=0.0061, , perplexity_loss=-4.8043
+  Training batch 30: loss=0.0563, recon_error=0.0501, vq_loss=0.0063, , perplexity_loss=-4.8776
+  Training batch 40: loss=0.0571, recon_error=0.0510, vq_loss=0.0061, , perplexity_loss=-4.7993
+  Training batch 50: loss=0.0499, recon_error=0.0434, vq_loss=0.0065, , perplexity_loss=-4.8989
+  Training batch 60: loss=0.0470, recon_error=0.0408, vq_loss=0.0062, , perplexity_loss=-4.8470
+  Training batch 70: loss=0.0591, recon_error=0.0530, vq_loss=0.0061, , perplexity_loss=-4.8160
+  Training batch 80: loss=0.0466, recon_error=0.0401, vq_loss=0.0065, , perplexity_loss=-5.0435
+  Training batch 90: loss=0.0437, recon_error=0.0376, vq_loss=0.0060, , perplexity_loss=-4.9030
+  Validation batch 0: loss=0.0492, recon_error=0.0428, vq_loss=0.0063, perplexity_loss=-4.9103
+  Validation batch 10: loss=0.0566, recon_error=0.0502, vq_loss=0.0064, perplexity_loss=-4.7947
+Epoch 16, Train Loss: 0.053, Train Reconstruct Loss: 0.047, Train VQ Loss: 0.006, Train Perplexity Loss: -4.902, Dev Loss: 0.053, Dev Reconstruct Loss: 0.047, Dev VQ Loss: 0.006, Dev Perplexity Loss: -4.877, 
+Training Perplexity: 120.864
+cosine_mean_similarity: 0.890
+euclidean_mean_distance: 8.679
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 17/50, batches: 98
+  Training batch 0: loss=0.0464, recon_error=0.0399, vq_loss=0.0065, , perplexity_loss=-4.9623
+  Training batch 10: loss=0.0484, recon_error=0.0422, vq_loss=0.0062, , perplexity_loss=-4.9307
+  Training batch 20: loss=0.0515, recon_error=0.0452, vq_loss=0.0063, , perplexity_loss=-4.9452
+  Training batch 30: loss=0.0391, recon_error=0.0329, vq_loss=0.0062, , perplexity_loss=-4.9816
+  Training batch 40: loss=0.0504, recon_error=0.0443, vq_loss=0.0061, , perplexity_loss=-4.8348
+  Training batch 50: loss=0.0469, recon_error=0.0405, vq_loss=0.0064, , perplexity_loss=-4.9360
+  Training batch 60: loss=0.0420, recon_error=0.0357, vq_loss=0.0063, , perplexity_loss=-5.0475
+  Training batch 70: loss=0.0454, recon_error=0.0391, vq_loss=0.0064, , perplexity_loss=-4.9145
+  Training batch 80: loss=0.0536, recon_error=0.0475, vq_loss=0.0061, , perplexity_loss=-4.8458
+  Training batch 90: loss=0.0553, recon_error=0.0491, vq_loss=0.0061, , perplexity_loss=-4.8723
+  Validation batch 0: loss=0.0458, recon_error=0.0395, vq_loss=0.0063, perplexity_loss=-4.9091
+  Validation batch 10: loss=0.0536, recon_error=0.0473, vq_loss=0.0063, perplexity_loss=-4.7912
+Epoch 17, Train Loss: 0.047, Train Reconstruct Loss: 0.041, Train VQ Loss: 0.006, Train Perplexity Loss: -4.906, Dev Loss: 0.051, Dev Reconstruct Loss: 0.045, Dev VQ Loss: 0.006, Dev Perplexity Loss: -4.879, 
+Training Perplexity: 120.449
+cosine_mean_similarity: 0.892
+euclidean_mean_distance: 8.629
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 18/50, batches: 98
+  Training batch 0: loss=0.0477, recon_error=0.0417, vq_loss=0.0060, , perplexity_loss=-4.8532
+  Training batch 10: loss=0.0441, recon_error=0.0378, vq_loss=0.0063, , perplexity_loss=-4.9074
+  Training batch 20: loss=0.0516, recon_error=0.0456, vq_loss=0.0060, , perplexity_loss=-4.7713
+  Training batch 30: loss=0.0398, recon_error=0.0337, vq_loss=0.0061, , perplexity_loss=-4.8981
+  Training batch 40: loss=0.0421, recon_error=0.0359, vq_loss=0.0062, , perplexity_loss=-4.9764
+  Training batch 50: loss=0.0385, recon_error=0.0323, vq_loss=0.0062, , perplexity_loss=-4.9112
+  Training batch 60: loss=0.0506, recon_error=0.0443, vq_loss=0.0062, , perplexity_loss=-4.9249
+  Training batch 70: loss=0.0534, recon_error=0.0472, vq_loss=0.0062, , perplexity_loss=-4.8963
+  Training batch 80: loss=0.0480, recon_error=0.0420, vq_loss=0.0061, , perplexity_loss=-4.8961
+  Training batch 90: loss=0.0436, recon_error=0.0375, vq_loss=0.0062, , perplexity_loss=-5.0053
+  Validation batch 0: loss=0.0467, recon_error=0.0404, vq_loss=0.0062, perplexity_loss=-4.9164
+  Validation batch 10: loss=0.0507, recon_error=0.0444, vq_loss=0.0063, perplexity_loss=-4.7911
+Epoch 18, Train Loss: 0.047, Train Reconstruct Loss: 0.040, Train VQ Loss: 0.006, Train Perplexity Loss: -4.902, Dev Loss: 0.049, Dev Reconstruct Loss: 0.043, Dev VQ Loss: 0.006, Dev Perplexity Loss: -4.879, 
+Training Perplexity: 120.428
+cosine_mean_similarity: 0.893
+euclidean_mean_distance: 8.594
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 19/50, batches: 98
+  Training batch 0: loss=0.0442, recon_error=0.0382, vq_loss=0.0060, , perplexity_loss=-4.8286
+  Training batch 10: loss=0.0469, recon_error=0.0409, vq_loss=0.0060, , perplexity_loss=-4.8442
+  Training batch 20: loss=0.0557, recon_error=0.0494, vq_loss=0.0063, , perplexity_loss=-4.8835
+  Training batch 30: loss=0.0375, recon_error=0.0315, vq_loss=0.0060, , perplexity_loss=-4.9582
+  Training batch 40: loss=0.0515, recon_error=0.0455, vq_loss=0.0060, , perplexity_loss=-4.7190
+  Training batch 50: loss=0.0459, recon_error=0.0397, vq_loss=0.0062, , perplexity_loss=-4.9444
+  Training batch 60: loss=0.0427, recon_error=0.0366, vq_loss=0.0061, , perplexity_loss=-4.9500
+  Training batch 70: loss=0.0417, recon_error=0.0359, vq_loss=0.0058, , perplexity_loss=-4.7053
+  Training batch 80: loss=0.0423, recon_error=0.0362, vq_loss=0.0061, , perplexity_loss=-4.8965
+  Training batch 90: loss=0.0579, recon_error=0.0518, vq_loss=0.0061, , perplexity_loss=-4.8979
+  Validation batch 0: loss=0.0465, recon_error=0.0403, vq_loss=0.0062, perplexity_loss=-4.9216
+  Validation batch 10: loss=0.0457, recon_error=0.0394, vq_loss=0.0062, perplexity_loss=-4.7982
+Epoch 19, Train Loss: 0.045, Train Reconstruct Loss: 0.038, Train VQ Loss: 0.006, Train Perplexity Loss: -4.904, Dev Loss: 0.047, Dev Reconstruct Loss: 0.041, Dev VQ Loss: 0.006, Dev Perplexity Loss: -4.881, 
+Training Perplexity: 121.292
+cosine_mean_similarity: 0.894
+euclidean_mean_distance: 8.563
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+Best model updated and saved at epoch 19
+
+Epoch 20/50, batches: 98
+  Training batch 0: loss=0.0429, recon_error=0.0371, vq_loss=0.0059, , perplexity_loss=-4.8153
+  Training batch 10: loss=0.0404, recon_error=0.0346, vq_loss=0.0058, , perplexity_loss=-4.8163
+  Training batch 20: loss=0.0403, recon_error=0.0347, vq_loss=0.0056, , perplexity_loss=-4.7419
+  Training batch 30: loss=0.0405, recon_error=0.0344, vq_loss=0.0061, , perplexity_loss=-4.9230
+  Training batch 40: loss=0.0488, recon_error=0.0427, vq_loss=0.0061, , perplexity_loss=-4.9323
+  Training batch 50: loss=0.0510, recon_error=0.0447, vq_loss=0.0063, , perplexity_loss=-4.9509
+  Training batch 60: loss=0.0470, recon_error=0.0413, vq_loss=0.0057, , perplexity_loss=-4.6539
+  Training batch 70: loss=0.0450, recon_error=0.0388, vq_loss=0.0062, , perplexity_loss=-4.9268
+  Training batch 80: loss=0.0447, recon_error=0.0386, vq_loss=0.0060, , perplexity_loss=-4.8803
+  Training batch 90: loss=0.0486, recon_error=0.0424, vq_loss=0.0062, , perplexity_loss=-4.9664
+  Validation batch 0: loss=0.0447, recon_error=0.0386, vq_loss=0.0061, perplexity_loss=-4.9170
+  Validation batch 10: loss=0.0457, recon_error=0.0395, vq_loss=0.0062, perplexity_loss=-4.7965
+Epoch 20, Train Loss: 0.045, Train Reconstruct Loss: 0.038, Train VQ Loss: 0.006, Train Perplexity Loss: -4.904, Dev Loss: 0.046, Dev Reconstruct Loss: 0.039, Dev VQ Loss: 0.006, Dev Perplexity Loss: -4.882, 
+Training Perplexity: 121.090
+cosine_mean_similarity: 0.895
+euclidean_mean_distance: 8.521
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+Best model updated and saved at epoch 20
+
+Epoch 21/50, batches: 98
+  Training batch 0: loss=0.0376, recon_error=0.0319, vq_loss=0.0057, , perplexity_loss=-4.8142
+  Training batch 10: loss=0.0409, recon_error=0.0349, vq_loss=0.0060, , perplexity_loss=-4.8735
+  Training batch 20: loss=0.0380, recon_error=0.0318, vq_loss=0.0062, , perplexity_loss=-4.9289
+  Training batch 30: loss=0.0404, recon_error=0.0345, vq_loss=0.0059, , perplexity_loss=-4.9520
+  Training batch 40: loss=0.0470, recon_error=0.0412, vq_loss=0.0058, , perplexity_loss=-4.9385
+  Training batch 50: loss=0.0471, recon_error=0.0410, vq_loss=0.0061, , perplexity_loss=-4.9392
+  Training batch 60: loss=0.0415, recon_error=0.0351, vq_loss=0.0064, , perplexity_loss=-4.9928
+  Training batch 70: loss=0.0446, recon_error=0.0383, vq_loss=0.0063, , perplexity_loss=-4.9495
+  Training batch 80: loss=0.0428, recon_error=0.0368, vq_loss=0.0060, , perplexity_loss=-4.8913
+  Training batch 90: loss=0.0420, recon_error=0.0363, vq_loss=0.0057, , perplexity_loss=-4.8647
+  Validation batch 0: loss=0.0482, recon_error=0.0421, vq_loss=0.0060, perplexity_loss=-4.9146
+  Validation batch 10: loss=0.0478, recon_error=0.0417, vq_loss=0.0061, perplexity_loss=-4.7944
+Epoch 21, Train Loss: 0.044, Train Reconstruct Loss: 0.038, Train VQ Loss: 0.006, Train Perplexity Loss: -4.905, Dev Loss: 0.050, Dev Reconstruct Loss: 0.044, Dev VQ Loss: 0.006, Dev Perplexity Loss: -4.882, 
+Training Perplexity: 120.835
+cosine_mean_similarity: 0.896
+euclidean_mean_distance: 8.482
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 22/50, batches: 98
+  Training batch 0: loss=0.0461, recon_error=0.0401, vq_loss=0.0060, , perplexity_loss=-4.9741
+  Training batch 10: loss=0.0356, recon_error=0.0297, vq_loss=0.0060, , perplexity_loss=-5.0077
+  Training batch 20: loss=0.0413, recon_error=0.0353, vq_loss=0.0060, , perplexity_loss=-4.9625
+  Training batch 30: loss=0.0432, recon_error=0.0373, vq_loss=0.0059, , perplexity_loss=-4.8636
+  Training batch 40: loss=0.0418, recon_error=0.0360, vq_loss=0.0058, , perplexity_loss=-4.9653
+  Training batch 50: loss=0.0477, recon_error=0.0419, vq_loss=0.0059, , perplexity_loss=-4.8957
+  Training batch 60: loss=0.0432, recon_error=0.0373, vq_loss=0.0058, , perplexity_loss=-4.9139
+  Training batch 70: loss=0.0445, recon_error=0.0387, vq_loss=0.0059, , perplexity_loss=-4.8435
+  Training batch 80: loss=0.0450, recon_error=0.0389, vq_loss=0.0062, , perplexity_loss=-4.9563
+  Training batch 90: loss=0.0609, recon_error=0.0549, vq_loss=0.0060, , perplexity_loss=-4.9763
+  Validation batch 0: loss=0.0439, recon_error=0.0379, vq_loss=0.0060, perplexity_loss=-4.9220
+  Validation batch 10: loss=0.0417, recon_error=0.0356, vq_loss=0.0061, perplexity_loss=-4.7950
+Epoch 22, Train Loss: 0.043, Train Reconstruct Loss: 0.037, Train VQ Loss: 0.006, Train Perplexity Loss: -4.904, Dev Loss: 0.045, Dev Reconstruct Loss: 0.039, Dev VQ Loss: 0.006, Dev Perplexity Loss: -4.884, 
+Training Perplexity: 120.902
+cosine_mean_similarity: 0.897
+euclidean_mean_distance: 8.439
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+Best model updated and saved at epoch 22
+
+Epoch 23/50, batches: 98
+  Training batch 0: loss=0.0401, recon_error=0.0341, vq_loss=0.0060, , perplexity_loss=-4.8969
+  Training batch 10: loss=0.0445, recon_error=0.0385, vq_loss=0.0060, , perplexity_loss=-4.9714
+  Training batch 20: loss=0.0422, recon_error=0.0364, vq_loss=0.0058, , perplexity_loss=-4.8939
+  Training batch 30: loss=0.0406, recon_error=0.0350, vq_loss=0.0057, , perplexity_loss=-4.7805
+  Training batch 40: loss=0.0406, recon_error=0.0348, vq_loss=0.0058, , perplexity_loss=-4.8925
+  Training batch 50: loss=0.0458, recon_error=0.0401, vq_loss=0.0057, , perplexity_loss=-4.7989
+  Training batch 60: loss=0.0386, recon_error=0.0327, vq_loss=0.0059, , perplexity_loss=-4.9490
+  Training batch 70: loss=0.0478, recon_error=0.0418, vq_loss=0.0060, , perplexity_loss=-4.9624
+  Training batch 80: loss=0.0452, recon_error=0.0393, vq_loss=0.0059, , perplexity_loss=-4.8455
+  Training batch 90: loss=0.0442, recon_error=0.0383, vq_loss=0.0059, , perplexity_loss=-4.9084
+  Validation batch 0: loss=0.0497, recon_error=0.0438, vq_loss=0.0059, perplexity_loss=-4.9229
+  Validation batch 10: loss=0.0511, recon_error=0.0451, vq_loss=0.0060, perplexity_loss=-4.7924
+Epoch 23, Train Loss: 0.044, Train Reconstruct Loss: 0.038, Train VQ Loss: 0.006, Train Perplexity Loss: -4.906, Dev Loss: 0.052, Dev Reconstruct Loss: 0.046, Dev VQ Loss: 0.006, Dev Perplexity Loss: -4.882, 
+Training Perplexity: 120.590
+cosine_mean_similarity: 0.897
+euclidean_mean_distance: 8.403
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 24/50, batches: 98
+  Training batch 0: loss=0.0431, recon_error=0.0374, vq_loss=0.0058, , perplexity_loss=-4.9300
+  Training batch 10: loss=0.0466, recon_error=0.0411, vq_loss=0.0055, , perplexity_loss=-4.7199
+  Training batch 20: loss=0.0407, recon_error=0.0350, vq_loss=0.0057, , perplexity_loss=-4.8976
+  Training batch 30: loss=0.0418, recon_error=0.0358, vq_loss=0.0060, , perplexity_loss=-4.9078
+  Training batch 40: loss=0.0426, recon_error=0.0366, vq_loss=0.0060, , perplexity_loss=-4.9779
+  Training batch 50: loss=0.0424, recon_error=0.0369, vq_loss=0.0055, , perplexity_loss=-4.7344
+  Training batch 60: loss=0.0407, recon_error=0.0347, vq_loss=0.0060, , perplexity_loss=-4.9741
+  Training batch 70: loss=0.0515, recon_error=0.0455, vq_loss=0.0059, , perplexity_loss=-4.9756
+  Training batch 80: loss=0.0445, recon_error=0.0386, vq_loss=0.0058, , perplexity_loss=-4.8750
+  Training batch 90: loss=0.0422, recon_error=0.0364, vq_loss=0.0058, , perplexity_loss=-4.9985
+  Validation batch 0: loss=0.0422, recon_error=0.0363, vq_loss=0.0059, perplexity_loss=-4.9249
+  Validation batch 10: loss=0.0484, recon_error=0.0425, vq_loss=0.0059, perplexity_loss=-4.8018
+Epoch 24, Train Loss: 0.044, Train Reconstruct Loss: 0.038, Train VQ Loss: 0.006, Train Perplexity Loss: -4.908, Dev Loss: 0.046, Dev Reconstruct Loss: 0.040, Dev VQ Loss: 0.006, Dev Perplexity Loss: -4.887, 
+Training Perplexity: 121.724
+cosine_mean_similarity: 0.898
+euclidean_mean_distance: 8.371
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 25/50, batches: 98
+  Training batch 0: loss=0.0413, recon_error=0.0352, vq_loss=0.0060, , perplexity_loss=-5.0467
+  Training batch 10: loss=0.0506, recon_error=0.0450, vq_loss=0.0056, , perplexity_loss=-4.7547
+  Training batch 20: loss=0.0401, recon_error=0.0343, vq_loss=0.0058, , perplexity_loss=-4.8122
+  Training batch 30: loss=0.0432, recon_error=0.0372, vq_loss=0.0060, , perplexity_loss=-4.9441
+  Training batch 40: loss=0.0475, recon_error=0.0419, vq_loss=0.0056, , perplexity_loss=-4.7602
+  Training batch 50: loss=0.0425, recon_error=0.0367, vq_loss=0.0058, , perplexity_loss=-5.0252
+  Training batch 60: loss=0.0392, recon_error=0.0337, vq_loss=0.0055, , perplexity_loss=-4.8383
+  Training batch 70: loss=0.0436, recon_error=0.0379, vq_loss=0.0057, , perplexity_loss=-4.8563
+  Training batch 80: loss=0.0464, recon_error=0.0405, vq_loss=0.0059, , perplexity_loss=-4.9319
+  Training batch 90: loss=0.0474, recon_error=0.0417, vq_loss=0.0057, , perplexity_loss=-4.8005
+  Validation batch 0: loss=0.0445, recon_error=0.0387, vq_loss=0.0058, perplexity_loss=-4.9231
+  Validation batch 10: loss=0.0440, recon_error=0.0382, vq_loss=0.0059, perplexity_loss=-4.8027
+Epoch 25, Train Loss: 0.043, Train Reconstruct Loss: 0.037, Train VQ Loss: 0.006, Train Perplexity Loss: -4.909, Dev Loss: 0.043, Dev Reconstruct Loss: 0.038, Dev VQ Loss: 0.006, Dev Perplexity Loss: -4.886, 
+Training Perplexity: 121.844
+cosine_mean_similarity: 0.898
+euclidean_mean_distance: 8.331
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+Best model updated and saved at epoch 25
+
+Epoch 26/50, batches: 98
+  Training batch 0: loss=0.0366, recon_error=0.0309, vq_loss=0.0056, , perplexity_loss=-4.8924
+  Training batch 10: loss=0.0398, recon_error=0.0339, vq_loss=0.0059, , perplexity_loss=-4.9534
+  Training batch 20: loss=0.0429, recon_error=0.0373, vq_loss=0.0055, , perplexity_loss=-4.8622
+  Training batch 30: loss=0.0409, recon_error=0.0351, vq_loss=0.0058, , perplexity_loss=-4.9932
+  Training batch 40: loss=0.0370, recon_error=0.0311, vq_loss=0.0059, , perplexity_loss=-5.0523
+  Training batch 50: loss=0.0402, recon_error=0.0344, vq_loss=0.0058, , perplexity_loss=-4.9297
+  Training batch 60: loss=0.0375, recon_error=0.0315, vq_loss=0.0060, , perplexity_loss=-5.0068
+  Training batch 70: loss=0.0502, recon_error=0.0446, vq_loss=0.0056, , perplexity_loss=-4.8514
+  Training batch 80: loss=0.0372, recon_error=0.0316, vq_loss=0.0056, , perplexity_loss=-4.9146
+  Training batch 90: loss=0.0478, recon_error=0.0422, vq_loss=0.0056, , perplexity_loss=-4.9405
+  Validation batch 0: loss=0.0421, recon_error=0.0364, vq_loss=0.0057, perplexity_loss=-4.9169
+  Validation batch 10: loss=0.0422, recon_error=0.0364, vq_loss=0.0058, perplexity_loss=-4.8095
+Epoch 26, Train Loss: 0.041, Train Reconstruct Loss: 0.036, Train VQ Loss: 0.006, Train Perplexity Loss: -4.912, Dev Loss: 0.044, Dev Reconstruct Loss: 0.038, Dev VQ Loss: 0.006, Dev Perplexity Loss: -4.884, 
+Training Perplexity: 122.667
+cosine_mean_similarity: 0.899
+euclidean_mean_distance: 8.266
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 27/50, batches: 98
+  Training batch 0: loss=0.0394, recon_error=0.0337, vq_loss=0.0057, , perplexity_loss=-4.9009
+  Training batch 10: loss=0.0419, recon_error=0.0364, vq_loss=0.0056, , perplexity_loss=-4.7836
+  Training batch 20: loss=0.0437, recon_error=0.0379, vq_loss=0.0057, , perplexity_loss=-4.9300
+  Training batch 30: loss=0.0468, recon_error=0.0410, vq_loss=0.0058, , perplexity_loss=-4.9003
+  Training batch 40: loss=0.0465, recon_error=0.0410, vq_loss=0.0054, , perplexity_loss=-4.9130
+  Training batch 50: loss=0.0476, recon_error=0.0420, vq_loss=0.0056, , perplexity_loss=-4.8016
+  Training batch 60: loss=0.0383, recon_error=0.0324, vq_loss=0.0058, , perplexity_loss=-5.0372
+  Training batch 70: loss=0.0435, recon_error=0.0379, vq_loss=0.0056, , perplexity_loss=-4.9687
+  Training batch 80: loss=0.0496, recon_error=0.0439, vq_loss=0.0056, , perplexity_loss=-4.9198
+  Training batch 90: loss=0.0464, recon_error=0.0408, vq_loss=0.0056, , perplexity_loss=-4.9353
+  Validation batch 0: loss=0.0436, recon_error=0.0379, vq_loss=0.0057, perplexity_loss=-4.9258
+  Validation batch 10: loss=0.0412, recon_error=0.0355, vq_loss=0.0057, perplexity_loss=-4.8002
+Epoch 27, Train Loss: 0.043, Train Reconstruct Loss: 0.037, Train VQ Loss: 0.006, Train Perplexity Loss: -4.907, Dev Loss: 0.044, Dev Reconstruct Loss: 0.038, Dev VQ Loss: 0.006, Dev Perplexity Loss: -4.883, 
+Training Perplexity: 121.536
+cosine_mean_similarity: 0.899
+euclidean_mean_distance: 8.240
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 28/50, batches: 98
+  Training batch 0: loss=0.0431, recon_error=0.0375, vq_loss=0.0056, , perplexity_loss=-4.8036
+  Training batch 10: loss=0.0382, recon_error=0.0329, vq_loss=0.0053, , perplexity_loss=-4.7413
+  Training batch 20: loss=0.0381, recon_error=0.0326, vq_loss=0.0056, , perplexity_loss=-4.9413
+  Training batch 30: loss=0.0370, recon_error=0.0315, vq_loss=0.0055, , perplexity_loss=-4.9584
+  Training batch 40: loss=0.0418, recon_error=0.0362, vq_loss=0.0056, , perplexity_loss=-4.9090
+  Training batch 50: loss=0.0414, recon_error=0.0356, vq_loss=0.0058, , perplexity_loss=-4.8729
+  Training batch 60: loss=0.0398, recon_error=0.0342, vq_loss=0.0056, , perplexity_loss=-4.8991
+  Training batch 70: loss=0.0361, recon_error=0.0306, vq_loss=0.0055, , perplexity_loss=-4.9624
+  Training batch 80: loss=0.0493, recon_error=0.0438, vq_loss=0.0055, , perplexity_loss=-4.8327
+  Training batch 90: loss=0.0402, recon_error=0.0345, vq_loss=0.0057, , perplexity_loss=-5.0773
+  Validation batch 0: loss=0.0430, recon_error=0.0374, vq_loss=0.0056, perplexity_loss=-4.9226
+  Validation batch 10: loss=0.0431, recon_error=0.0374, vq_loss=0.0057, perplexity_loss=-4.8027
+Epoch 28, Train Loss: 0.042, Train Reconstruct Loss: 0.036, Train VQ Loss: 0.006, Train Perplexity Loss: -4.906, Dev Loss: 0.044, Dev Reconstruct Loss: 0.038, Dev VQ Loss: 0.006, Dev Perplexity Loss: -4.883, 
+Training Perplexity: 121.844
+cosine_mean_similarity: 0.900
+euclidean_mean_distance: 8.186
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 29/50, batches: 98
+  Training batch 0: loss=0.0388, recon_error=0.0333, vq_loss=0.0055, , perplexity_loss=-4.9677
+  Training batch 10: loss=0.0411, recon_error=0.0356, vq_loss=0.0055, , perplexity_loss=-4.9185
+  Training batch 20: loss=0.0375, recon_error=0.0320, vq_loss=0.0056, , perplexity_loss=-5.0291
+  Training batch 30: loss=0.0392, recon_error=0.0337, vq_loss=0.0056, , perplexity_loss=-5.0085
+  Training batch 40: loss=0.0396, recon_error=0.0341, vq_loss=0.0055, , perplexity_loss=-4.9363
+  Training batch 50: loss=0.0358, recon_error=0.0303, vq_loss=0.0055, , perplexity_loss=-4.9215
+  Training batch 60: loss=0.0393, recon_error=0.0339, vq_loss=0.0054, , perplexity_loss=-4.9311
+  Training batch 70: loss=0.0415, recon_error=0.0358, vq_loss=0.0058, , perplexity_loss=-5.1040
+  Training batch 80: loss=0.0373, recon_error=0.0318, vq_loss=0.0055, , perplexity_loss=-4.8958
+  Training batch 90: loss=0.0424, recon_error=0.0372, vq_loss=0.0051, , perplexity_loss=-4.8206
+  Validation batch 0: loss=0.0418, recon_error=0.0362, vq_loss=0.0055, perplexity_loss=-4.9288
+  Validation batch 10: loss=0.0414, recon_error=0.0358, vq_loss=0.0056, perplexity_loss=-4.8050
+Epoch 29, Train Loss: 0.041, Train Reconstruct Loss: 0.036, Train VQ Loss: 0.005, Train Perplexity Loss: -4.907, Dev Loss: 0.043, Dev Reconstruct Loss: 0.038, Dev VQ Loss: 0.006, Dev Perplexity Loss: -4.885, 
+Training Perplexity: 122.119
+cosine_mean_similarity: 0.901
+euclidean_mean_distance: 8.130
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 30/50, batches: 98
+  Training batch 0: loss=0.0415, recon_error=0.0360, vq_loss=0.0055, , perplexity_loss=-4.8790
+  Training batch 10: loss=0.0426, recon_error=0.0373, vq_loss=0.0052, , perplexity_loss=-4.8064
+  Training batch 20: loss=0.0399, recon_error=0.0345, vq_loss=0.0054, , perplexity_loss=-4.9485
+  Training batch 30: loss=0.0451, recon_error=0.0395, vq_loss=0.0056, , perplexity_loss=-5.0271
+  Training batch 40: loss=0.0367, recon_error=0.0315, vq_loss=0.0052, , perplexity_loss=-4.7935
+  Training batch 50: loss=0.0389, recon_error=0.0337, vq_loss=0.0052, , perplexity_loss=-4.8652
+  Training batch 60: loss=0.0353, recon_error=0.0299, vq_loss=0.0053, , perplexity_loss=-4.9696
+  Training batch 70: loss=0.0552, recon_error=0.0493, vq_loss=0.0059, , perplexity_loss=-5.0061
+  Training batch 80: loss=0.0447, recon_error=0.0389, vq_loss=0.0057, , perplexity_loss=-4.9606
+  Training batch 90: loss=0.0449, recon_error=0.0392, vq_loss=0.0057, , perplexity_loss=-4.9803
+  Validation batch 0: loss=0.0426, recon_error=0.0371, vq_loss=0.0055, perplexity_loss=-4.9209
+  Validation batch 10: loss=0.0458, recon_error=0.0402, vq_loss=0.0056, perplexity_loss=-4.7989
+Epoch 30, Train Loss: 0.042, Train Reconstruct Loss: 0.036, Train VQ Loss: 0.005, Train Perplexity Loss: -4.909, Dev Loss: 0.046, Dev Reconstruct Loss: 0.041, Dev VQ Loss: 0.006, Dev Perplexity Loss: -4.883, 
+Training Perplexity: 121.375
+cosine_mean_similarity: 0.901
+euclidean_mean_distance: 8.086
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 31/50, batches: 98
+  Training batch 0: loss=0.0401, recon_error=0.0348, vq_loss=0.0052, , perplexity_loss=-4.9166
+  Training batch 10: loss=0.0476, recon_error=0.0423, vq_loss=0.0053, , perplexity_loss=-4.8564
+  Training batch 20: loss=0.0424, recon_error=0.0369, vq_loss=0.0055, , perplexity_loss=-4.9123
+  Training batch 30: loss=0.0413, recon_error=0.0360, vq_loss=0.0053, , perplexity_loss=-4.9335
+  Training batch 40: loss=0.0374, recon_error=0.0321, vq_loss=0.0052, , perplexity_loss=-4.8419
+  Training batch 50: loss=0.0381, recon_error=0.0327, vq_loss=0.0053, , perplexity_loss=-4.8315
+  Training batch 60: loss=0.0428, recon_error=0.0372, vq_loss=0.0055, , perplexity_loss=-5.0131
+  Training batch 70: loss=0.0413, recon_error=0.0357, vq_loss=0.0056, , perplexity_loss=-5.0518
+  Training batch 80: loss=0.0468, recon_error=0.0412, vq_loss=0.0055, , perplexity_loss=-4.9600
+  Training batch 90: loss=0.0441, recon_error=0.0387, vq_loss=0.0053, , perplexity_loss=-4.7841
+  Validation batch 0: loss=0.0425, recon_error=0.0371, vq_loss=0.0054, perplexity_loss=-4.9288
+  Validation batch 10: loss=0.0409, recon_error=0.0354, vq_loss=0.0055, perplexity_loss=-4.8056
+Epoch 31, Train Loss: 0.042, Train Reconstruct Loss: 0.037, Train VQ Loss: 0.005, Train Perplexity Loss: -4.905, Dev Loss: 0.043, Dev Reconstruct Loss: 0.037, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.883, 
+Training Perplexity: 122.187
+cosine_mean_similarity: 0.901
+euclidean_mean_distance: 8.051
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+Best model updated and saved at epoch 31
+
+Epoch 32/50, batches: 98
+  Training batch 0: loss=0.0386, recon_error=0.0334, vq_loss=0.0052, , perplexity_loss=-4.8805
+  Training batch 10: loss=0.0420, recon_error=0.0367, vq_loss=0.0053, , perplexity_loss=-4.8947
+  Training batch 20: loss=0.0388, recon_error=0.0334, vq_loss=0.0054, , perplexity_loss=-4.9054
+  Training batch 30: loss=0.0413, recon_error=0.0360, vq_loss=0.0052, , perplexity_loss=-4.9152
+  Training batch 40: loss=0.0403, recon_error=0.0350, vq_loss=0.0052, , perplexity_loss=-4.8897
+  Training batch 50: loss=0.0410, recon_error=0.0358, vq_loss=0.0051, , perplexity_loss=-4.8532
+  Training batch 60: loss=0.0437, recon_error=0.0383, vq_loss=0.0054, , perplexity_loss=-4.9083
+  Training batch 70: loss=0.0371, recon_error=0.0317, vq_loss=0.0054, , perplexity_loss=-4.9943
+  Training batch 80: loss=0.0444, recon_error=0.0394, vq_loss=0.0050, , perplexity_loss=-4.8217
+  Training batch 90: loss=0.0399, recon_error=0.0345, vq_loss=0.0054, , perplexity_loss=-4.8282
+  Validation batch 0: loss=0.0400, recon_error=0.0347, vq_loss=0.0053, perplexity_loss=-4.9171
+  Validation batch 10: loss=0.0397, recon_error=0.0343, vq_loss=0.0054, perplexity_loss=-4.8052
+Epoch 32, Train Loss: 0.041, Train Reconstruct Loss: 0.035, Train VQ Loss: 0.005, Train Perplexity Loss: -4.907, Dev Loss: 0.042, Dev Reconstruct Loss: 0.036, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.883, 
+Training Perplexity: 122.140
+cosine_mean_similarity: 0.902
+euclidean_mean_distance: 7.993
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+Best model updated and saved at epoch 32
+
+Epoch 33/50, batches: 98
+  Training batch 0: loss=0.0370, recon_error=0.0319, vq_loss=0.0051, , perplexity_loss=-4.9303
+  Training batch 10: loss=0.0429, recon_error=0.0379, vq_loss=0.0051, , perplexity_loss=-4.8397
+  Training batch 20: loss=0.0403, recon_error=0.0354, vq_loss=0.0049, , perplexity_loss=-4.7797
+  Training batch 30: loss=0.0484, recon_error=0.0431, vq_loss=0.0053, , perplexity_loss=-4.9096
+  Training batch 40: loss=0.0422, recon_error=0.0370, vq_loss=0.0053, , perplexity_loss=-4.8914
+  Training batch 50: loss=0.0391, recon_error=0.0339, vq_loss=0.0052, , perplexity_loss=-4.9815
+  Training batch 60: loss=0.0407, recon_error=0.0356, vq_loss=0.0051, , perplexity_loss=-4.7605
+  Training batch 70: loss=0.0400, recon_error=0.0348, vq_loss=0.0052, , perplexity_loss=-4.8347
+  Training batch 80: loss=0.0388, recon_error=0.0335, vq_loss=0.0053, , perplexity_loss=-5.0361
+  Training batch 90: loss=0.0502, recon_error=0.0451, vq_loss=0.0051, , perplexity_loss=-4.8573
+  Validation batch 0: loss=0.0549, recon_error=0.0496, vq_loss=0.0053, perplexity_loss=-4.9139
+  Validation batch 10: loss=0.0482, recon_error=0.0428, vq_loss=0.0054, perplexity_loss=-4.8110
+Epoch 33, Train Loss: 0.041, Train Reconstruct Loss: 0.036, Train VQ Loss: 0.005, Train Perplexity Loss: -4.906, Dev Loss: 0.053, Dev Reconstruct Loss: 0.047, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.883, 
+Training Perplexity: 122.857
+cosine_mean_similarity: 0.902
+euclidean_mean_distance: 7.946
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 34/50, batches: 98
+  Training batch 0: loss=0.0479, recon_error=0.0428, vq_loss=0.0051, , perplexity_loss=-4.8576
+  Training batch 10: loss=0.0488, recon_error=0.0436, vq_loss=0.0051, , perplexity_loss=-4.8571
+  Training batch 20: loss=0.0366, recon_error=0.0315, vq_loss=0.0051, , perplexity_loss=-4.9415
+  Training batch 30: loss=0.0393, recon_error=0.0341, vq_loss=0.0051, , perplexity_loss=-4.9415
+  Training batch 40: loss=0.0399, recon_error=0.0346, vq_loss=0.0053, , perplexity_loss=-4.9575
+  Training batch 50: loss=0.0411, recon_error=0.0361, vq_loss=0.0049, , perplexity_loss=-4.5858
+  Training batch 60: loss=0.0478, recon_error=0.0427, vq_loss=0.0051, , perplexity_loss=-4.9469
+  Training batch 70: loss=0.0342, recon_error=0.0289, vq_loss=0.0053, , perplexity_loss=-5.0056
+  Training batch 80: loss=0.0364, recon_error=0.0314, vq_loss=0.0050, , perplexity_loss=-4.9464
+  Training batch 90: loss=0.0431, recon_error=0.0380, vq_loss=0.0051, , perplexity_loss=-4.9574
+  Validation batch 0: loss=0.0436, recon_error=0.0384, vq_loss=0.0052, perplexity_loss=-4.9124
+  Validation batch 10: loss=0.0434, recon_error=0.0381, vq_loss=0.0053, perplexity_loss=-4.7898
+Epoch 34, Train Loss: 0.041, Train Reconstruct Loss: 0.036, Train VQ Loss: 0.005, Train Perplexity Loss: -4.902, Dev Loss: 0.044, Dev Reconstruct Loss: 0.039, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.882, 
+Training Perplexity: 120.273
+cosine_mean_similarity: 0.902
+euclidean_mean_distance: 7.910
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 35/50, batches: 98
+  Training batch 0: loss=0.0364, recon_error=0.0311, vq_loss=0.0053, , perplexity_loss=-5.0567
+  Training batch 10: loss=0.0398, recon_error=0.0348, vq_loss=0.0050, , perplexity_loss=-4.8941
+  Training batch 20: loss=0.0434, recon_error=0.0386, vq_loss=0.0048, , perplexity_loss=-4.8484
+  Training batch 30: loss=0.0443, recon_error=0.0394, vq_loss=0.0049, , perplexity_loss=-4.8661
+  Training batch 40: loss=0.0353, recon_error=0.0301, vq_loss=0.0052, , perplexity_loss=-4.9476
+  Training batch 50: loss=0.0854, recon_error=0.0801, vq_loss=0.0053, , perplexity_loss=-4.8480
+  Training batch 60: loss=0.0851, recon_error=0.0788, vq_loss=0.0062, , perplexity_loss=-4.5018
+  Training batch 70: loss=0.0727, recon_error=0.0667, vq_loss=0.0060, , perplexity_loss=-4.5465
+  Training batch 80: loss=0.0598, recon_error=0.0542, vq_loss=0.0056, , perplexity_loss=-4.6804
+  Training batch 90: loss=0.0718, recon_error=0.0663, vq_loss=0.0054, , perplexity_loss=-4.7860
+  Validation batch 0: loss=0.0537, recon_error=0.0482, vq_loss=0.0054, perplexity_loss=-4.8223
+  Validation batch 10: loss=0.0546, recon_error=0.0490, vq_loss=0.0055, perplexity_loss=-4.7082
+Epoch 35, Train Loss: 0.058, Train Reconstruct Loss: 0.053, Train VQ Loss: 0.005, Train Perplexity Loss: -4.777, Dev Loss: 0.056, Dev Reconstruct Loss: 0.051, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.806, 
+Training Perplexity: 110.857
+cosine_mean_similarity: 0.893
+euclidean_mean_distance: 8.034
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 36/50, batches: 98
+  Training batch 0: loss=0.0564, recon_error=0.0512, vq_loss=0.0052, , perplexity_loss=-4.7070
+  Training batch 10: loss=0.0558, recon_error=0.0508, vq_loss=0.0050, , perplexity_loss=-4.7501
+  Training batch 20: loss=0.0518, recon_error=0.0467, vq_loss=0.0051, , perplexity_loss=-4.8405
+  Training batch 30: loss=0.0596, recon_error=0.0542, vq_loss=0.0054, , perplexity_loss=-4.9139
+  Training batch 40: loss=0.0433, recon_error=0.0382, vq_loss=0.0051, , perplexity_loss=-4.8942
+  Training batch 50: loss=0.0504, recon_error=0.0455, vq_loss=0.0049, , perplexity_loss=-4.7166
+  Training batch 60: loss=0.0541, recon_error=0.0488, vq_loss=0.0053, , perplexity_loss=-4.8613
+  Training batch 70: loss=0.0486, recon_error=0.0433, vq_loss=0.0053, , perplexity_loss=-4.9927
+  Training batch 80: loss=0.0414, recon_error=0.0362, vq_loss=0.0052, , perplexity_loss=-4.9911
+  Training batch 90: loss=0.0510, recon_error=0.0460, vq_loss=0.0050, , perplexity_loss=-4.8620
+  Validation batch 0: loss=0.0496, recon_error=0.0445, vq_loss=0.0051, perplexity_loss=-4.8931
+  Validation batch 10: loss=0.0497, recon_error=0.0445, vq_loss=0.0052, perplexity_loss=-4.7733
+Epoch 36, Train Loss: 0.053, Train Reconstruct Loss: 0.048, Train VQ Loss: 0.005, Train Perplexity Loss: -4.876, Dev Loss: 0.052, Dev Reconstruct Loss: 0.047, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.867, 
+Training Perplexity: 118.306
+cosine_mean_similarity: 0.892
+euclidean_mean_distance: 8.070
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 37/50, batches: 98
+  Training batch 0: loss=0.0467, recon_error=0.0417, vq_loss=0.0050, , perplexity_loss=-4.8933
+  Training batch 10: loss=0.0529, recon_error=0.0479, vq_loss=0.0050, , perplexity_loss=-4.8692
+  Training batch 20: loss=0.0544, recon_error=0.0491, vq_loss=0.0053, , perplexity_loss=-4.8847
+  Training batch 30: loss=0.0431, recon_error=0.0384, vq_loss=0.0048, , perplexity_loss=-4.7969
+  Training batch 40: loss=0.0466, recon_error=0.0414, vq_loss=0.0052, , perplexity_loss=-4.8815
+  Training batch 50: loss=0.0413, recon_error=0.0364, vq_loss=0.0049, , perplexity_loss=-4.8329
+  Training batch 60: loss=0.0447, recon_error=0.0396, vq_loss=0.0051, , perplexity_loss=-4.9746
+  Training batch 70: loss=0.0416, recon_error=0.0366, vq_loss=0.0050, , perplexity_loss=-4.8223
+  Training batch 80: loss=0.0447, recon_error=0.0397, vq_loss=0.0050, , perplexity_loss=-4.8977
+  Training batch 90: loss=0.0473, recon_error=0.0421, vq_loss=0.0052, , perplexity_loss=-4.9266
+  Validation batch 0: loss=0.0446, recon_error=0.0396, vq_loss=0.0050, perplexity_loss=-4.8945
+  Validation batch 10: loss=0.0477, recon_error=0.0426, vq_loss=0.0051, perplexity_loss=-4.7942
+Epoch 37, Train Loss: 0.048, Train Reconstruct Loss: 0.043, Train VQ Loss: 0.005, Train Perplexity Loss: -4.886, Dev Loss: 0.048, Dev Reconstruct Loss: 0.043, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.871, 
+Training Perplexity: 120.808
+cosine_mean_similarity: 0.893
+euclidean_mean_distance: 8.009
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 38/50, batches: 98
+  Training batch 0: loss=0.0417, recon_error=0.0368, vq_loss=0.0049, , perplexity_loss=-4.9039
+  Training batch 10: loss=0.0402, recon_error=0.0352, vq_loss=0.0050, , perplexity_loss=-4.9563
+  Training batch 20: loss=0.0459, recon_error=0.0410, vq_loss=0.0048, , perplexity_loss=-4.8268
+  Training batch 30: loss=0.0515, recon_error=0.0467, vq_loss=0.0048, , perplexity_loss=-4.7927
+  Training batch 40: loss=0.0428, recon_error=0.0380, vq_loss=0.0048, , perplexity_loss=-4.8722
+  Training batch 50: loss=0.0528, recon_error=0.0479, vq_loss=0.0050, , perplexity_loss=-4.8762
+  Training batch 60: loss=0.0481, recon_error=0.0431, vq_loss=0.0050, , perplexity_loss=-5.0338
+  Training batch 70: loss=0.0441, recon_error=0.0392, vq_loss=0.0049, , perplexity_loss=-4.8984
+  Training batch 80: loss=0.0420, recon_error=0.0371, vq_loss=0.0049, , perplexity_loss=-4.8539
+  Training batch 90: loss=0.0553, recon_error=0.0503, vq_loss=0.0050, , perplexity_loss=-4.8855
+  Validation batch 0: loss=0.0478, recon_error=0.0428, vq_loss=0.0050, perplexity_loss=-4.8839
+  Validation batch 10: loss=0.0462, recon_error=0.0412, vq_loss=0.0051, perplexity_loss=-4.7961
+Epoch 38, Train Loss: 0.047, Train Reconstruct Loss: 0.042, Train VQ Loss: 0.005, Train Perplexity Loss: -4.893, Dev Loss: 0.050, Dev Reconstruct Loss: 0.045, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.868, 
+Training Perplexity: 121.039
+cosine_mean_similarity: 0.895
+euclidean_mean_distance: 7.922
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 39/50, batches: 98
+  Training batch 0: loss=0.0442, recon_error=0.0394, vq_loss=0.0048, , perplexity_loss=-4.9310
+  Training batch 10: loss=0.0416, recon_error=0.0368, vq_loss=0.0049, , perplexity_loss=-4.9103
+  Training batch 20: loss=0.0399, recon_error=0.0349, vq_loss=0.0050, , perplexity_loss=-4.9973
+  Training batch 30: loss=0.0386, recon_error=0.0335, vq_loss=0.0051, , perplexity_loss=-5.0212
+  Training batch 40: loss=0.0452, recon_error=0.0403, vq_loss=0.0048, , perplexity_loss=-4.8493
+  Training batch 50: loss=0.0525, recon_error=0.0477, vq_loss=0.0048, , perplexity_loss=-4.8052
+  Training batch 60: loss=0.0425, recon_error=0.0377, vq_loss=0.0048, , perplexity_loss=-4.8713
+  Training batch 70: loss=0.0463, recon_error=0.0416, vq_loss=0.0047, , perplexity_loss=-4.7493
+  Training batch 80: loss=0.0389, recon_error=0.0341, vq_loss=0.0049, , perplexity_loss=-4.8967
+  Training batch 90: loss=0.0374, recon_error=0.0324, vq_loss=0.0049, , perplexity_loss=-4.9097
+  Validation batch 0: loss=0.0431, recon_error=0.0382, vq_loss=0.0049, perplexity_loss=-4.9006
+  Validation batch 10: loss=0.0462, recon_error=0.0411, vq_loss=0.0050, perplexity_loss=-4.7937
+Epoch 39, Train Loss: 0.044, Train Reconstruct Loss: 0.039, Train VQ Loss: 0.005, Train Perplexity Loss: -4.895, Dev Loss: 0.045, Dev Reconstruct Loss: 0.040, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.874, 
+Training Perplexity: 120.753
+cosine_mean_similarity: 0.895
+euclidean_mean_distance: 7.886
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 40/50, batches: 98
+  Training batch 0: loss=0.0413, recon_error=0.0365, vq_loss=0.0048, , perplexity_loss=-4.9647
+  Training batch 10: loss=0.0395, recon_error=0.0345, vq_loss=0.0049, , perplexity_loss=-4.9789
+  Training batch 20: loss=0.0460, recon_error=0.0411, vq_loss=0.0049, , perplexity_loss=-4.9011
+  Training batch 30: loss=0.0406, recon_error=0.0358, vq_loss=0.0049, , perplexity_loss=-4.8954
+  Training batch 40: loss=0.0509, recon_error=0.0458, vq_loss=0.0051, , perplexity_loss=-4.8782
+  Training batch 50: loss=0.0384, recon_error=0.0335, vq_loss=0.0049, , perplexity_loss=-4.9573
+  Training batch 60: loss=0.0432, recon_error=0.0384, vq_loss=0.0049, , perplexity_loss=-4.8037
+  Training batch 70: loss=0.0397, recon_error=0.0347, vq_loss=0.0050, , perplexity_loss=-5.0248
+  Training batch 80: loss=0.0482, recon_error=0.0433, vq_loss=0.0049, , perplexity_loss=-4.9305
+  Training batch 90: loss=0.0445, recon_error=0.0395, vq_loss=0.0050, , perplexity_loss=-4.8966
+  Validation batch 0: loss=0.0469, recon_error=0.0420, vq_loss=0.0049, perplexity_loss=-4.9037
+  Validation batch 10: loss=0.0437, recon_error=0.0388, vq_loss=0.0050, perplexity_loss=-4.8042
+Epoch 40, Train Loss: 0.042, Train Reconstruct Loss: 0.037, Train VQ Loss: 0.005, Train Perplexity Loss: -4.895, Dev Loss: 0.047, Dev Reconstruct Loss: 0.042, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.874, 
+Training Perplexity: 122.018
+cosine_mean_similarity: 0.896
+euclidean_mean_distance: 7.821
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 41/50, batches: 98
+  Training batch 0: loss=0.0427, recon_error=0.0378, vq_loss=0.0049, , perplexity_loss=-4.9129
+  Training batch 10: loss=0.0419, recon_error=0.0369, vq_loss=0.0049, , perplexity_loss=-4.9066
+  Training batch 20: loss=0.0430, recon_error=0.0380, vq_loss=0.0049, , perplexity_loss=-4.8441
+  Training batch 30: loss=0.0375, recon_error=0.0328, vq_loss=0.0048, , perplexity_loss=-4.8376
+  Training batch 40: loss=0.0441, recon_error=0.0394, vq_loss=0.0048, , perplexity_loss=-4.9594
+  Training batch 50: loss=0.0390, recon_error=0.0343, vq_loss=0.0047, , perplexity_loss=-4.8493
+  Training batch 60: loss=0.0377, recon_error=0.0328, vq_loss=0.0050, , perplexity_loss=-4.9434
+  Training batch 70: loss=0.0405, recon_error=0.0357, vq_loss=0.0049, , perplexity_loss=-4.9539
+  Training batch 80: loss=0.0404, recon_error=0.0354, vq_loss=0.0050, , perplexity_loss=-4.9859
+  Training batch 90: loss=0.0413, recon_error=0.0365, vq_loss=0.0048, , perplexity_loss=-4.9107
+  Validation batch 0: loss=0.0412, recon_error=0.0363, vq_loss=0.0048, perplexity_loss=-4.9019
+  Validation batch 10: loss=0.0429, recon_error=0.0380, vq_loss=0.0049, perplexity_loss=-4.7943
+Epoch 41, Train Loss: 0.041, Train Reconstruct Loss: 0.036, Train VQ Loss: 0.005, Train Perplexity Loss: -4.899, Dev Loss: 0.043, Dev Reconstruct Loss: 0.038, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.874, 
+Training Perplexity: 120.823
+cosine_mean_similarity: 0.897
+euclidean_mean_distance: 7.771
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 42/50, batches: 98
+  Training batch 0: loss=0.0384, recon_error=0.0337, vq_loss=0.0047, , perplexity_loss=-4.9391
+  Training batch 10: loss=0.0419, recon_error=0.0373, vq_loss=0.0046, , perplexity_loss=-4.7966
+  Training batch 20: loss=0.0366, recon_error=0.0319, vq_loss=0.0047, , perplexity_loss=-4.9438
+  Training batch 30: loss=0.0398, recon_error=0.0349, vq_loss=0.0048, , perplexity_loss=-4.9063
+  Training batch 40: loss=0.0411, recon_error=0.0366, vq_loss=0.0045, , perplexity_loss=-4.6896
+  Training batch 50: loss=0.0420, recon_error=0.0372, vq_loss=0.0048, , perplexity_loss=-4.9487
+  Training batch 60: loss=0.0382, recon_error=0.0333, vq_loss=0.0048, , perplexity_loss=-4.9663
+  Training batch 70: loss=0.0391, recon_error=0.0345, vq_loss=0.0047, , perplexity_loss=-4.8322
+  Training batch 80: loss=0.0398, recon_error=0.0351, vq_loss=0.0047, , perplexity_loss=-4.8514
+  Training batch 90: loss=0.0356, recon_error=0.0307, vq_loss=0.0049, , perplexity_loss=-4.9437
+  Validation batch 0: loss=0.0435, recon_error=0.0387, vq_loss=0.0048, perplexity_loss=-4.9015
+  Validation batch 10: loss=0.0408, recon_error=0.0359, vq_loss=0.0049, perplexity_loss=-4.7946
+Epoch 42, Train Loss: 0.041, Train Reconstruct Loss: 0.036, Train VQ Loss: 0.005, Train Perplexity Loss: -4.900, Dev Loss: 0.043, Dev Reconstruct Loss: 0.038, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.871, 
+Training Perplexity: 120.858
+cosine_mean_similarity: 0.896
+euclidean_mean_distance: 7.748
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 43/50, batches: 98
+  Training batch 0: loss=0.0427, recon_error=0.0382, vq_loss=0.0044, , perplexity_loss=-4.7332
+  Training batch 10: loss=0.0355, recon_error=0.0307, vq_loss=0.0048, , perplexity_loss=-4.9653
+  Training batch 20: loss=0.0376, recon_error=0.0331, vq_loss=0.0045, , perplexity_loss=-4.8243
+  Training batch 30: loss=0.0456, recon_error=0.0408, vq_loss=0.0048, , perplexity_loss=-4.8392
+  Training batch 40: loss=0.0424, recon_error=0.0375, vq_loss=0.0049, , perplexity_loss=-4.9331
+  Training batch 50: loss=0.0367, recon_error=0.0320, vq_loss=0.0047, , perplexity_loss=-4.8732
+  Training batch 60: loss=0.0414, recon_error=0.0368, vq_loss=0.0046, , perplexity_loss=-4.8373
+  Training batch 70: loss=0.0501, recon_error=0.0455, vq_loss=0.0047, , perplexity_loss=-4.7791
+  Training batch 80: loss=0.0466, recon_error=0.0418, vq_loss=0.0048, , perplexity_loss=-4.9417
+  Training batch 90: loss=0.0468, recon_error=0.0421, vq_loss=0.0047, , perplexity_loss=-4.7612
+  Validation batch 0: loss=0.0422, recon_error=0.0374, vq_loss=0.0048, perplexity_loss=-4.8916
+  Validation batch 10: loss=0.0408, recon_error=0.0360, vq_loss=0.0049, perplexity_loss=-4.7927
+Epoch 43, Train Loss: 0.041, Train Reconstruct Loss: 0.037, Train VQ Loss: 0.005, Train Perplexity Loss: -4.898, Dev Loss: 0.043, Dev Reconstruct Loss: 0.038, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.867, 
+Training Perplexity: 120.622
+cosine_mean_similarity: 0.895
+euclidean_mean_distance: 7.751
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 44/50, batches: 98
+  Training batch 0: loss=0.0446, recon_error=0.0400, vq_loss=0.0046, , perplexity_loss=-4.8859
+  Training batch 10: loss=0.0455, recon_error=0.0408, vq_loss=0.0047, , perplexity_loss=-4.9148
+  Training batch 20: loss=0.0376, recon_error=0.0330, vq_loss=0.0046, , perplexity_loss=-4.8121
+  Training batch 30: loss=0.0364, recon_error=0.0317, vq_loss=0.0047, , perplexity_loss=-4.8384
+  Training batch 40: loss=0.0371, recon_error=0.0324, vq_loss=0.0047, , perplexity_loss=-4.8651
+  Training batch 50: loss=0.0398, recon_error=0.0350, vq_loss=0.0048, , perplexity_loss=-4.9608
+  Training batch 60: loss=0.0397, recon_error=0.0348, vq_loss=0.0049, , perplexity_loss=-4.8021
+  Training batch 70: loss=0.0443, recon_error=0.0396, vq_loss=0.0047, , perplexity_loss=-4.8287
+  Training batch 80: loss=0.0382, recon_error=0.0336, vq_loss=0.0045, , perplexity_loss=-4.8031
+  Training batch 90: loss=0.0415, recon_error=0.0369, vq_loss=0.0045, , perplexity_loss=-4.8213
+  Validation batch 0: loss=0.0425, recon_error=0.0378, vq_loss=0.0047, perplexity_loss=-4.9025
+  Validation batch 10: loss=0.0402, recon_error=0.0354, vq_loss=0.0048, perplexity_loss=-4.8023
+Epoch 44, Train Loss: 0.040, Train Reconstruct Loss: 0.036, Train VQ Loss: 0.005, Train Perplexity Loss: -4.897, Dev Loss: 0.042, Dev Reconstruct Loss: 0.037, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.870, 
+Training Perplexity: 121.789
+cosine_mean_similarity: 0.894
+euclidean_mean_distance: 7.752
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 45/50, batches: 98
+  Training batch 0: loss=0.0344, recon_error=0.0299, vq_loss=0.0045, , perplexity_loss=-4.9537
+  Training batch 10: loss=0.0348, recon_error=0.0301, vq_loss=0.0047, , perplexity_loss=-4.8672
+  Training batch 20: loss=0.0423, recon_error=0.0377, vq_loss=0.0046, , perplexity_loss=-4.7489
+  Training batch 30: loss=0.0376, recon_error=0.0329, vq_loss=0.0047, , perplexity_loss=-4.9099
+  Training batch 40: loss=0.0361, recon_error=0.0314, vq_loss=0.0047, , perplexity_loss=-4.8804
+  Training batch 50: loss=0.0400, recon_error=0.0351, vq_loss=0.0049, , perplexity_loss=-4.9849
+  Training batch 60: loss=0.0442, recon_error=0.0396, vq_loss=0.0046, , perplexity_loss=-4.8816
+  Training batch 70: loss=0.0374, recon_error=0.0330, vq_loss=0.0044, , perplexity_loss=-4.7483
+  Training batch 80: loss=0.0315, recon_error=0.0270, vq_loss=0.0045, , perplexity_loss=-4.7921
+  Training batch 90: loss=0.0365, recon_error=0.0320, vq_loss=0.0046, , perplexity_loss=-4.9069
+  Validation batch 0: loss=0.0400, recon_error=0.0353, vq_loss=0.0047, perplexity_loss=-4.9034
+  Validation batch 10: loss=0.0384, recon_error=0.0336, vq_loss=0.0048, perplexity_loss=-4.7902
+Epoch 45, Train Loss: 0.038, Train Reconstruct Loss: 0.033, Train VQ Loss: 0.005, Train Perplexity Loss: -4.896, Dev Loss: 0.040, Dev Reconstruct Loss: 0.035, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.870, 
+Training Perplexity: 120.323
+cosine_mean_similarity: 0.894
+euclidean_mean_distance: 7.718
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+Best model updated and saved at epoch 45
+
+Epoch 46/50, batches: 98
+  Training batch 0: loss=0.0382, recon_error=0.0337, vq_loss=0.0046, , perplexity_loss=-4.8226
+  Training batch 10: loss=0.0362, recon_error=0.0314, vq_loss=0.0047, , perplexity_loss=-4.9278
+  Training batch 20: loss=0.0390, recon_error=0.0342, vq_loss=0.0049, , perplexity_loss=-4.9675
+  Training batch 30: loss=0.0323, recon_error=0.0277, vq_loss=0.0046, , perplexity_loss=-4.9160
+  Training batch 40: loss=0.0343, recon_error=0.0297, vq_loss=0.0046, , perplexity_loss=-4.8904
+  Training batch 50: loss=0.0408, recon_error=0.0361, vq_loss=0.0047, , perplexity_loss=-4.8310
+  Training batch 60: loss=0.0333, recon_error=0.0285, vq_loss=0.0047, , perplexity_loss=-4.9696
+  Training batch 70: loss=0.0381, recon_error=0.0334, vq_loss=0.0047, , perplexity_loss=-4.9323
+  Training batch 80: loss=0.0339, recon_error=0.0293, vq_loss=0.0046, , perplexity_loss=-4.9367
+  Training batch 90: loss=0.0329, recon_error=0.0281, vq_loss=0.0048, , perplexity_loss=-4.9702
+  Validation batch 0: loss=0.0390, recon_error=0.0343, vq_loss=0.0047, perplexity_loss=-4.9025
+  Validation batch 10: loss=0.0375, recon_error=0.0327, vq_loss=0.0048, perplexity_loss=-4.7977
+Epoch 46, Train Loss: 0.037, Train Reconstruct Loss: 0.032, Train VQ Loss: 0.005, Train Perplexity Loss: -4.899, Dev Loss: 0.039, Dev Reconstruct Loss: 0.034, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.875, 
+Training Perplexity: 121.227
+cosine_mean_similarity: 0.895
+euclidean_mean_distance: 7.676
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+Best model updated and saved at epoch 46
+
+Epoch 47/50, batches: 98
+  Training batch 0: loss=0.0390, recon_error=0.0343, vq_loss=0.0047, , perplexity_loss=-4.9836
+  Training batch 10: loss=0.0383, recon_error=0.0338, vq_loss=0.0045, , perplexity_loss=-4.8098
+  Training batch 20: loss=0.0338, recon_error=0.0290, vq_loss=0.0047, , perplexity_loss=-5.0113
+  Training batch 30: loss=0.0321, recon_error=0.0276, vq_loss=0.0045, , perplexity_loss=-4.9388
+  Training batch 40: loss=0.0308, recon_error=0.0261, vq_loss=0.0047, , perplexity_loss=-4.9949
+  Training batch 50: loss=0.0408, recon_error=0.0362, vq_loss=0.0047, , perplexity_loss=-4.9460
+  Training batch 60: loss=0.0384, recon_error=0.0337, vq_loss=0.0047, , perplexity_loss=-4.9510
+  Training batch 70: loss=0.0322, recon_error=0.0274, vq_loss=0.0048, , perplexity_loss=-4.9716
+  Training batch 80: loss=0.0324, recon_error=0.0276, vq_loss=0.0048, , perplexity_loss=-4.9940
+  Training batch 90: loss=0.0362, recon_error=0.0314, vq_loss=0.0047, , perplexity_loss=-4.9610
+  Validation batch 0: loss=0.0385, recon_error=0.0338, vq_loss=0.0047, perplexity_loss=-4.9072
+  Validation batch 10: loss=0.0369, recon_error=0.0322, vq_loss=0.0048, perplexity_loss=-4.7898
+Epoch 47, Train Loss: 0.036, Train Reconstruct Loss: 0.032, Train VQ Loss: 0.005, Train Perplexity Loss: -4.900, Dev Loss: 0.038, Dev Reconstruct Loss: 0.033, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.871, 
+Training Perplexity: 120.274
+cosine_mean_similarity: 0.894
+euclidean_mean_distance: 7.644
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+Best model updated and saved at epoch 47
+
+Epoch 48/50, batches: 98
+  Training batch 0: loss=0.0320, recon_error=0.0276, vq_loss=0.0044, , perplexity_loss=-4.8536
+  Training batch 10: loss=0.0427, recon_error=0.0380, vq_loss=0.0047, , perplexity_loss=-4.7989
+  Training batch 20: loss=0.0317, recon_error=0.0271, vq_loss=0.0046, , perplexity_loss=-4.9499
+  Training batch 30: loss=0.0416, recon_error=0.0370, vq_loss=0.0046, , perplexity_loss=-4.7199
+  Training batch 40: loss=0.0349, recon_error=0.0300, vq_loss=0.0048, , perplexity_loss=-5.0008
+  Training batch 50: loss=0.0347, recon_error=0.0301, vq_loss=0.0045, , perplexity_loss=-4.8908
+  Training batch 60: loss=0.0350, recon_error=0.0302, vq_loss=0.0049, , perplexity_loss=-5.0536
+  Training batch 70: loss=0.0343, recon_error=0.0297, vq_loss=0.0046, , perplexity_loss=-4.8076
+  Training batch 80: loss=0.0413, recon_error=0.0369, vq_loss=0.0044, , perplexity_loss=-4.6701
+  Training batch 90: loss=0.0404, recon_error=0.0359, vq_loss=0.0045, , perplexity_loss=-4.8377
+  Validation batch 0: loss=0.0407, recon_error=0.0360, vq_loss=0.0047, perplexity_loss=-4.9102
+  Validation batch 10: loss=0.0369, recon_error=0.0322, vq_loss=0.0047, perplexity_loss=-4.7972
+Epoch 48, Train Loss: 0.036, Train Reconstruct Loss: 0.031, Train VQ Loss: 0.005, Train Perplexity Loss: -4.905, Dev Loss: 0.038, Dev Reconstruct Loss: 0.034, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.874, 
+Training Perplexity: 121.175
+cosine_mean_similarity: 0.894
+euclidean_mean_distance: 7.620
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+
+Epoch 49/50, batches: 98
+  Training batch 0: loss=0.0365, recon_error=0.0319, vq_loss=0.0046, , perplexity_loss=-4.9228
+  Training batch 10: loss=0.0339, recon_error=0.0293, vq_loss=0.0046, , perplexity_loss=-4.9311
+  Training batch 20: loss=0.0411, recon_error=0.0363, vq_loss=0.0048, , perplexity_loss=-4.9579
+  Training batch 30: loss=0.0274, recon_error=0.0229, vq_loss=0.0045, , perplexity_loss=-4.9670
+  Training batch 40: loss=0.0362, recon_error=0.0316, vq_loss=0.0046, , perplexity_loss=-4.9260
+  Training batch 50: loss=0.0350, recon_error=0.0305, vq_loss=0.0045, , perplexity_loss=-4.8780
+  Training batch 60: loss=0.0321, recon_error=0.0276, vq_loss=0.0045, , perplexity_loss=-4.9068
+  Training batch 70: loss=0.0328, recon_error=0.0282, vq_loss=0.0046, , perplexity_loss=-4.9483
+  Training batch 80: loss=0.0371, recon_error=0.0325, vq_loss=0.0046, , perplexity_loss=-4.8288
+  Training batch 90: loss=0.0371, recon_error=0.0324, vq_loss=0.0047, , perplexity_loss=-4.8670
+  Validation batch 0: loss=0.0380, recon_error=0.0333, vq_loss=0.0046, perplexity_loss=-4.9095
+  Validation batch 10: loss=0.0365, recon_error=0.0317, vq_loss=0.0047, perplexity_loss=-4.8001
+Epoch 49, Train Loss: 0.035, Train Reconstruct Loss: 0.031, Train VQ Loss: 0.005, Train Perplexity Loss: -4.901, Dev Loss: 0.037, Dev Reconstruct Loss: 0.032, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.871, 
+Training Perplexity: 121.519
+cosine_mean_similarity: 0.893
+euclidean_mean_distance: 7.607
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+Best model updated and saved at epoch 49
+
+Epoch 50/50, batches: 98
+  Training batch 0: loss=0.0361, recon_error=0.0316, vq_loss=0.0045, , perplexity_loss=-4.8037
+  Training batch 10: loss=0.0364, recon_error=0.0319, vq_loss=0.0045, , perplexity_loss=-4.8693
+  Training batch 20: loss=0.0359, recon_error=0.0314, vq_loss=0.0045, , perplexity_loss=-4.8181
+  Training batch 30: loss=0.0359, recon_error=0.0314, vq_loss=0.0045, , perplexity_loss=-4.8480
+  Training batch 40: loss=0.0339, recon_error=0.0294, vq_loss=0.0045, , perplexity_loss=-4.8757
+  Training batch 50: loss=0.0315, recon_error=0.0271, vq_loss=0.0045, , perplexity_loss=-4.8820
+  Training batch 60: loss=0.0325, recon_error=0.0279, vq_loss=0.0045, , perplexity_loss=-4.8258
+  Training batch 70: loss=0.0368, recon_error=0.0319, vq_loss=0.0049, , perplexity_loss=-5.0840
+  Training batch 80: loss=0.0343, recon_error=0.0298, vq_loss=0.0046, , perplexity_loss=-4.9609
+  Training batch 90: loss=0.0357, recon_error=0.0312, vq_loss=0.0045, , perplexity_loss=-4.7939
+  Validation batch 0: loss=0.0413, recon_error=0.0367, vq_loss=0.0046, perplexity_loss=-4.8955
+  Validation batch 10: loss=0.0370, recon_error=0.0322, vq_loss=0.0047, perplexity_loss=-4.7972
+Epoch 50, Train Loss: 0.035, Train Reconstruct Loss: 0.030, Train VQ Loss: 0.005, Train Perplexity Loss: -4.901, Dev Loss: 0.038, Dev Reconstruct Loss: 0.033, Dev VQ Loss: 0.005, Dev Perplexity Loss: -4.872, 
+Training Perplexity: 121.170
+cosine_mean_similarity: 0.893
+euclidean_mean_distance: 7.594
+Codebook details: 387/400 vectors used
+Usage counts - Min: 0.0, Max: 13878.0
+===== Running inference with VQC model =====
+
+Performing inference on test data...
+
+Average Inference Perplexity: 111.275
+
+Codebook Usage During Inference:
+Active codes: 379/400 (94.75%)
+Unused codes: 21
+Token to index mapping saved to ../output/eraser-movie/8_12_encoder_temp1_k5_spherical_K400/token_to_index_map.json
+===== Extracting codebook vectors =====
+Loading checkpoint from ../output/eraser-movie/8_12_encoder_temp1_k5_spherical_K400/model.pt
+Codebook vectors saved to ../output/eraser-movie/8_12_encoder_temp1_k5_spherical_K400/codebook_vectors.pt
+Number of clusters: 400
+Vector dimension: 768
+===== Generating explanations for salient tokens =====
+Processing complete! Output file saved as: ../output/eraser-movie/8_12_encoder_temp1_k5_spherical_K400/merged_explanations.csv
+===== Analyzing latent concepts =====
+Start generating latent concepts_norm
+Error in generating word cloud for concept:  ['1998', '1997', '2001', '1998', '1996', '1998', '1997', '1978', '2001', '2001', '2001', '2001', '1997', '1995', '1998', '2001', '1998', '1998', '1978', '1999', '1998', '1978', '99', '1997', '1995', '1997', '99', '1978', '1997', '1997', '1997', '1997', '1997', '2000', '1994', '1993', '1997', '1998', '1996']
+Error in generating word cloud for concept:  ['1999', '1999', '1992', '1994', '1995', '1989', '1985', '80', '1999', '1998', '1990', '1996', '1984', '1995', '1994', '1992', '1993', '1995', '1996', '1990', '1988', '1994', '1995', '1988', '1989', '1988', '2001', '1996', '2000', '2000', '1996', '1999', '1993', '1994', '1992', '1994', '2001', '80', '1993', '1997', '1993', '1992', '80', '1999', '1997', '1990', '1996', '1995', '1992', '1992', '1995', '1988', '1990', '1990', '1992', '1985', '1984', '1996', '2001', '2001', '2000', '50', '50', '60', '2001', '1993', '1999', '1992', '2001', '1994', '1999']
+Error in generating word cloud for concept:  ['1998', '2000', '1998', '1993', '1995', '1996', '1998', '1993', '1997', '1995', '1999', '1999', '1984', '1999', '1993', '1997', '1999', '1994', '1985', '1998', '1997', '1984', '1989', '1985', '1999', '2001', '1998', '1978', '1998', '1994', '1995', '1998', '1984', '2001', '2001', '1992', '2001', '1984', '1997', '1998', '1994', '1992', '1997', '1998', '1999', '2000', '1989', '1995', '1984', '1985', '1995', '1993', '1995', '1998', '1995', '80', '1996', '90', '1985', '2000', '90', '2001', '1984', '2001', '1992', '2000', '2001', '1997', '2000', '70', '80', '99', '1992', '80', '1996', '1999', '1989', '1995', '2001', '1996', '1993', '80', '1993', '1988', '1996', '1999', '1998', '2000', '1999']
+Error in generating word cloud for concept:  [':', '--', ';', ':', '--', ':', '/', '(', ':', '(', '(', '--', ':', '/', ':', ':', ':', '(', ':', '(', '--', '(', '--', '(', '(', '/', ';', '/', '(', '/', '--', ';', '---', ':', '---', ':', '(', '/', ';', ';', '(', '+', '=', '/', '/', ':', '*', ':', ';', ',', ':', ':', ';', '--', ':', ':', '(', '(', '/', '+', '(', ':', ',', '(', '(', '&', '/', '/', '&', '/', '/', '&', '&', '(', ',', '=', ';', ';', ':', ';', '--', '(', '-', ':', ';', '/', '/', ',', '&', '.', '&', '&', '+', ',', '%', '(', ',', '-', '/', ';']
+Error in generating word cloud for concept:  ['?', ')', '?', '.', '?', '!', '?', '?', ')', '.', '.', ')', '?', '?', '!', '!', '?', ')', ')', '.', '!', ')', ')', ')', '!', '!', ')', '?', '!', '.', ')', '.', '.', ')', '.', '?', ')', '.', '?', '?', ')', '.', ')', '.', '?', '?', '?', '.', '!', '?', '.', '?', '?', '!', '!', '!', ')', '.', '!', '.', '.', '.', '!', ')', '.', '"', '!', '!', '---', ')', ')', ')', '---', '?', '"', '"', ',', ';', '!', ',', '"', ';', ',', '--', ';', '?']
+Error in generating word cloud for concept:  ['-', '-', '`', '', '', '', '', '', '', '', '`', '`', "'", '`', '', '`', "'", "'", '*', '*', '*', '*', '', '', '=', '=', "'", '`', '-', '-', '-', '-', '', '*', '*', "'", "'", '`', '"', '"', '"', '"', '*', '`', '`', '`', "'", '`', "'", "'", '=', "'", '`', '`', '*', '`', "'", "'", '', "'", '"', "'", '-', '"', "'", "'", '', '', "'", '"', '', '', '=', "'", '+', '"', '-', '=', '$', '/', '=', '"', '', '-', '', '$', '-', '*', '`', '', '"']
+===== All processing complete =====
