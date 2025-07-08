@@ -15,6 +15,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from tqdm import tqdm
 from transformers import AutoTokenizer, AutoModel
 
+LABEL_MAPPING = {}
 
 def set_seed(seed):
     """Set all random seeds for reproducibility."""
@@ -46,14 +47,21 @@ def load_codebook_vectors(file_path):
     return codebook_dict
 
 
-def load_ground_truth_labels(json_file_path):
-    """Load ground truth labels from the JSON file."""
-    with open(json_file_path, 'r') as f:
-        data = json.load(f)
-    # Create a mapping from sentence index to ground truth label
+def load_ground_truth_labels(ground_truth_file):
+    """Load ground truth labels and convert strings to numeric indices if needed."""
+    with open(ground_truth_file, 'r') as file:
+        data = json.load(file)
+    
+    # Extract labels as a list
     labels = [item['label'] for item in data]
+    
+    # Convert strings to numeric if needed
+    if labels and isinstance(labels[0], str):
+        unique_labels = sorted(set(labels))
+        label_map = {label: i for i, label in enumerate(unique_labels)}
+        labels = [label_map[label] for label in labels]
+    
     return labels
-
 
 class SimpleClassifier(nn.Module):
     """A simple feed-forward neural network classifier."""

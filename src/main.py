@@ -12,13 +12,23 @@ from models.model import Model
 from models.vector_quantizer import VectorQuantizerEMA
 import torch.nn.functional as F
 from models.codebook_initialization import initialize_codebook_from_type
+import random
 
 
 # Set device for computation (GPU if available, else CPU)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Set random seeds for reproducibility
-torch.manual_seed(42)
-np.random.seed(42)
+SEED = 42
+torch.manual_seed(SEED)
+np.random.seed(SEED)
+random.seed(SEED)
+
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+
+def clear_gpu_memory():
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
 
 class DualDataset(Dataset):
     """Dataset class for handling dual embedding data.
@@ -170,7 +180,10 @@ def add_seq_length_dimension(input_data, output_data=None):
                 padded_sentence = sentence
             padded_output_embeddings.append(padded_sentence)
         new_output_embeddings_tensor = torch.tensor(padded_output_embeddings, dtype=torch.float)
+        # clear_gpu_memory()
         return new_meta, new_input_embeddings_tensor, new_output_embeddings_tensor
+
+    # clear_gpu_memory()
     return new_meta, new_input_embeddings_tensor
 
 
@@ -190,23 +203,30 @@ def split_data(new_meta, new_input_embeddings_tensor, new_output_embeddings_tens
         If new_output_embeddings_tensor is provided:
             Tuple of (train_data, val_data) where each item is a (meta, input_embedding, output_embedding) tuple
     """
+
     if len(new_meta) != len(new_input_embeddings_tensor):
         raise ValueError(f"Length mismatch: meta ({len(new_meta)}) != input_embeddings ({len(new_input_embeddings_tensor)})")
+
     if new_output_embeddings_tensor is not None and len(new_input_embeddings_tensor) != len(new_output_embeddings_tensor):
         raise ValueError(f"Length mismatch: input_embeddings ({len(new_input_embeddings_tensor)}) != output_embeddings ({len(new_output_embeddings_tensor)})")
+
     df = pd.DataFrame(columns=['meta', 'input_embedding', 'output_embedding', 'sentence_idx'])
     df['meta'] = new_meta
     df['input_embedding'] = [tensor for tensor in new_input_embeddings_tensor]
+
     if new_output_embeddings_tensor is not None:
         df['output_embedding'] = [tensor for tensor in new_output_embeddings_tensor]
+
     for i, word_list in enumerate(df['meta']):
         sentence_idx = int(word_list[0].split("|||")[2])
         df.loc[i, 'sentence_idx'] = sentence_idx
+
     sentence_idx = df['sentence_idx'].unique()
     np.random.shuffle(sentence_idx)
     split_idx = int(len(sentence_idx) * train_ratio)
     train_idx = sentence_idx[:split_idx]
     val_idx = sentence_idx[split_idx:]
+
     train_data = []
     val_data = []
     for idx in train_idx:
@@ -220,6 +240,7 @@ def split_data(new_meta, new_input_embeddings_tensor, new_output_embeddings_tens
             train_data.append((batch_meta, batch_input_embedding, batch_output_embedding))
         else:
             train_data.append((batch_meta, batch_input_embedding))
+            
     for idx in val_idx:
         mask = df['sentence_idx'] == idx
         batch_meta = df[mask]['meta'].tolist()
@@ -356,23 +377,35 @@ def training(train_data, val_data, model, num_training_updates, optimizer, sched
 
     for epoch in range(num_training_updates):
 
+        print("\n" + "="*50)
+        print(f"Epoch {epoch + 1}/{num_training_updates}, batches: {len(train_loader)}")
+        print("="*50)
+
         model.reset_codebook_usage()
-        print(f"\nEpoch {epoch + 1}/{num_training_updates}, batches: {len(train_loader)}")
         model.train()
-        train_loss_error = []
+
+        train_total_loss_error = []
         train_reconstruct_loss_error = []
-        train_vq_loss_error = []
+        train_commit_loss_error = []
         train_perplexity_loss_error = []
+
+        train_perplexity_values = []
+        train_cosine_similarity_values = []
+        train_euclidean_distance_values = []
+        
         for idx, (meta, input_embedding, output_embedding) in enumerate(train_loader):
             input_embedding = input_embedding.to(device)
             output_embedding = output_embedding.to(device)
             if torch.isnan(input_embedding).any() or torch.isnan(output_embedding).any():
                 continue
             optimizer.zero_grad()
+
             model_output = model(input_embedding, device=device)
             z_e = model_output["z_e"]
             reconstructed = model_output["reconstructed"]
-            vq_loss = model_output["loss"]
+            commit_loss = model_output["commit_loss"]
+            perplexity_loss = model_output["perplexity_loss"]
+
             if meta is not None:
                 vector_map = map_discrete_idx_with_tokens(meta, model_output["indices"])
                 whole_vector_map = update_vector_map(whole_vector_map, vector_map, token_to_key_map)
@@ -383,93 +416,118 @@ def training(train_data, val_data, model, num_training_updates, optimizer, sched
             # Calculate reconstruction error only on non-padding tokens
             output_valid = torch.masked_select(output_embedding, mask_expanded)
             recon_valid = torch.masked_select(reconstructed, mask_expanded)
+            # Calculate reconstruction error
             recon_error = F.mse_loss(recon_valid, output_valid, reduction="mean")
-            loss = recon_error + vq_loss
-            loss.backward()
+            # Calculate total loss
+            total_loss = recon_error + commit_loss + perplexity_loss
+            total_loss.backward()
             optimizer.step()
-            if "perplexity_loss" in model_output:
-                train_perplexity_loss_error.append(model_output["perplexity_loss"].item())
-            train_loss_error.append(loss.item())
+            
+            train_perplexity_loss_error.append(perplexity_loss.item())
+            train_total_loss_error.append(total_loss.item())
             train_reconstruct_loss_error.append(recon_error.item())
-            train_vq_loss_error.append(vq_loss.item())
-            if idx % 10 == 0:  # Print every 10 batches
-                perplexity_loss_str = ""
-                if train_perplexity_loss_error:
-                    perplexity_loss_str = f", perplexity_loss={train_perplexity_loss_error[-1]:.4f}"
-                print(f"  Training batch {idx}: loss={loss.item():.4f}, "
-                    f"recon_error={recon_error.item():.4f}, "
-                    f"vq_loss={vq_loss.item():.4f}, "
-                    f"{perplexity_loss_str}")
+            train_commit_loss_error.append(commit_loss.item())
+            train_perplexity_values.append(model_output["perplexity"].item())
+            train_cosine_similarity_values.append(model_output["similarity_metric"]["cosine_mean_similarity"])
+            train_euclidean_distance_values.append(model_output["similarity_metric"]["euclidean_mean_distance"])
+
+
+        # Print training metrics
+        print("\n📊 TRAINING METRICS:")
+
+        print(f"Train Total Loss: {np.mean(train_total_loss_error):.3f}, "
+            f"Reconstruct Loss: {np.mean(train_reconstruct_loss_error):.3f}, "
+            f"Commit Loss: {np.mean(train_commit_loss_error):.3f}, "
+            f"Perplexity Loss: {np.mean(train_perplexity_loss_error):.3f}")
+        print(f"  • Perplexity (avg): {np.mean(train_perplexity_values):.3f}")
+        print(f"  • Cosine Similarity: {train_cosine_similarity_values[-1]:.3f}")
+        print(f"  • Euclidean Distance: {train_euclidean_distance_values[-1]:.3f}")
+        
 
         # Validation
         model.eval()
-        val_loss_error = []
+        val_total_loss_error = []
         val_reconstruct_loss_error = []
-        val_vq_loss_error = []
+        val_commit_loss_error = []
         val_perplexity_loss_error = []
+
+        val_perplexity_values = []
+        val_cosine_similarity_values = []
+        val_euclidean_distance_values = []
+
         with torch.no_grad():
+
             for idx, (meta, input_embedding, output_embedding) in enumerate(val_loader):
                 input_embedding = input_embedding.to(device)
                 output_embedding = output_embedding.to(device)
+
                 model_output = model(input_embedding, device=device)
+
                 z_e = model_output["z_e"]
                 reconstructed = model_output["reconstructed"]
-                vq_loss = model_output["loss"]
+                commit_loss = model_output["commit_loss"]
+                perplexity_loss = model_output["perplexity_loss"]
+
                 # Create a padding mask to identify non-padding tokens
                 padding_mask = torch.norm(output_embedding, dim=2) > 1e-6
+
                 # Create mask for the reconstruction loss calculation
                 mask_expanded = padding_mask.unsqueeze(-1).expand_as(output_embedding)
+
                 # Calculate reconstruction error only on non-padding tokens
                 output_valid = torch.masked_select(output_embedding, mask_expanded)
                 recon_valid = torch.masked_select(reconstructed, mask_expanded)
+
                 # Calculate MSE loss on valid elements only
                 recon_error = F.mse_loss(recon_valid, output_valid, reduction="mean")
-                loss = recon_error + vq_loss
-                val_loss_error.append(loss.item())
-                val_reconstruct_loss_error.append(recon_error.item())
-                val_vq_loss_error.append(vq_loss.item())
-                # Track perplexity loss for validation
-                if "perplexity_loss" in model_output:
-                    val_perplexity_loss_error.append(model_output["perplexity_loss"].item())
-                if idx % 10 == 0:  # Print every 10 batches
-                    perplexity_loss_str = ""
-                    if "perplexity_loss" in model_output:
-                        perplexity_loss_str = f", perplexity_loss={model_output['perplexity_loss'].item():.4f}"
-                    print(f"  Validation batch {idx}: loss={loss.item():.4f}, "
-                        f"recon_error={recon_error.item():.4f}, "
-                        f"vq_loss={vq_loss.item():.4f}"
-                        f"{perplexity_loss_str}")
+                # Calculate total loss
+                total_loss = recon_error + commit_loss + perplexity_loss
 
-        print(
-            f"Epoch {epoch + 1}, "
-            f"Train Loss: {np.mean(train_loss_error):.3f}, "
-            f"Train Reconstruct Loss: {np.mean(train_reconstruct_loss_error):.3f}, "
-            f"Train VQ Loss: {np.mean(train_vq_loss_error):.3f}, "
-            f"Train Perplexity Loss: {np.mean(train_perplexity_loss_error):.3f}, "
-            f"Dev Loss: {np.mean(val_loss_error):.3f}, "
-            f"Dev Reconstruct Loss: {np.mean(val_reconstruct_loss_error):.3f}, "
-            f"Dev VQ Loss: {np.mean(val_vq_loss_error):.3f}, "
-            f"Dev Perplexity Loss: {np.mean(val_perplexity_loss_error):.3f}, "
-        )
-        
-        val_loss_mean = np.mean(val_loss_error)
-        scheduler.step(val_loss_mean)
-        cosine_mean_similarity = model_output["similarity_metric"]["cosine_mean_similarity"]
-        euclidean_mean_distance = model_output["similarity_metric"]["euclidean_mean_distance"]
-        perplexity = model_output.get('perplexity')
+                val_total_loss_error.append(total_loss.item())
+                val_reconstruct_loss_error.append(recon_error.item())
+                val_commit_loss_error.append(commit_loss.item())
+                val_perplexity_loss_error.append(perplexity_loss.item())
+                val_perplexity_values.append(model_output["perplexity"].item())
+                val_cosine_similarity_values.append(model_output["similarity_metric"]["cosine_mean_similarity"])
+                val_euclidean_distance_values.append(model_output["similarity_metric"]["euclidean_mean_distance"])
+
+
+        # Print validation metrics
         stats = model.get_codebook_usage()
         nonzero_counts = (stats['usage_count'] > 0).sum().item()
         min_count = stats['usage_count'].min().item() if nonzero_counts > 0 else 0
         max_count = stats['usage_count'].max().item() if nonzero_counts > 0 else 0
 
-        print(f"Training Perplexity: {perplexity:.3f}")
-        print(f"cosine_mean_similarity: {cosine_mean_similarity:.3f}" )
-        print(f"euclidean_mean_distance: {euclidean_mean_distance:.3f}" )
-        print(f"Codebook details: {nonzero_counts}/{stats['total_codes']} vectors used")
-        print(f"Usage counts - Min: {min_count}, Max: {max_count}")
+        # For validation metrics:
+        print("-"*50)
+        print("📊 VALIDATION METRICS:")
         
-        if np.mean(val_loss_error) < best_val_loss:
-            best_val_loss = np.mean(val_loss_error)
+        print(f"Dev Total Loss: {np.mean(val_total_loss_error):.3f}, "
+            f"Dev Reconstruct Loss: {np.mean(val_reconstruct_loss_error):.3f}, "
+            f"Dev Commit Loss: {np.mean(val_commit_loss_error):.3f}, "
+            f"Dev Perplexity Loss: {np.mean(val_perplexity_loss_error):.3f}")
+        print(f"  • Perplexity (avg): {np.mean(val_perplexity_values):.3f}")
+        print(f"  • Cosine Similarity: {val_cosine_similarity_values[-1]:.3f}")
+        print(f"  • Euclidean Distance: {val_euclidean_distance_values[-1]:.3f}")
+        print(f"  • Codebook details: {nonzero_counts}/{stats['total_codes']} vectors used")
+        print(f"  • Usage counts - Min: {min_count:.1f}, Max: {max_count:.1f}")
+
+        
+        # ALPHA TRACKING CODE:
+        if args.use_adaptive_encoder and hasattr(model._ContinuousEmbedding, 'alpha'):
+            if hasattr(model._ContinuousEmbedding, 'is_fixed') and not model._ContinuousEmbedding.is_fixed:
+                alpha_val = torch.sigmoid(model._ContinuousEmbedding.alpha).item() * 1
+                print(f"  • Current α: {alpha_val:.4f}")
+            elif hasattr(model._ContinuousEmbedding, 'is_fixed') and model._ContinuousEmbedding.is_fixed:
+                alpha_val = model._ContinuousEmbedding.alpha.item() * 1
+                print(f"  • Fixed α: {alpha_val:.4f}")
+
+        # Update the learning rate based on validation loss
+        val_loss_mean = np.mean(val_total_loss_error)
+        scheduler.step(val_loss_mean)
+        
+        if val_loss_mean < best_val_loss:
+            best_val_loss = val_loss_mean
             best_epoch = epoch + 1
             best_model_state = model.state_dict()
             best_optimizer_state = optimizer.state_dict()
@@ -498,7 +556,7 @@ def training(train_data, val_data, model, num_training_updates, optimizer, sched
                 'perplexity_weight': model._VectorQuantizer._perplexity_weight ,
                 'use_adaptive_encoder': args.use_adaptive_encoder
             }, save_path)
-            print(f"Best model updated and saved at epoch {best_epoch}")
+            print("\n✅ Best model updated and saved at epoch", best_epoch)
         else:
             no_improvement_counter += 1
         if no_improvement_counter >= 15:
@@ -512,8 +570,33 @@ def training(train_data, val_data, model, num_training_updates, optimizer, sched
     return best_vector_map, best_model_state
 
 
+def analyze_s_token(token_to_index_map):
+    """
+    Count how many times <s> token appears in each cluster.
+    
+    Args:
+        token_to_index_map: Dictionary mapping tokens to their discrete indices
+    """
+    # Count each cluster's <s> tokens
+    cluster_counts = {}
+    
+    for token_key, cluster_id in token_to_index_map.items():
+        if token_key.startswith("<s>"):
+            cluster_counts[cluster_id] = cluster_counts.get(cluster_id, 0) + 1
+    
+    # Print results
+    print("\n===== <s> Token Cluster Counts =====")
+    
+    if cluster_counts:
+        print(f"<s> tokens appear in {len(cluster_counts)} different clusters:")
+        for cluster_id, count in sorted(cluster_counts.items(), key=lambda x: x[1], reverse=True):
+            print(f"  Cluster {cluster_id}: {count} times")
+    else:
+        print("No <s> tokens found in any cluster.")
 
-def inference(model, test_data, device, batch_size=32):
+
+
+def inference(model, test_data, device, batch_size=64):
     """Perform inference using a trained model.
     
     Args:
@@ -637,6 +720,18 @@ def parse_args():
                         help ='Enter the codebook initialization technique')
     parser.add_argument('--random_vector_seed', default=42,
                         help ='seed for random vector initialization', type=int,required=False)
+    parser.add_argument('--codebook_dir', type=str, default=None,
+                  help='Directory to save/load codebook from')
+    parser.add_argument('--perplexity_weight', type=float, default=0.0,
+                        help='Weight for perplexity loss')
+    parser.add_argument('--input_layer',type=int, required=False,
+                        help='Index of the input layer to use for training')
+    parser.add_argument('--output_layer',type=int, required=False,
+                        help='Index of the output layer to use for training')
+    parser.add_argument('--fixed_alpha', type=float, default=None,
+                   help='Use fixed alpha value instead of learnable')
+    parser.add_argument('--commitment_cost', type=float, default=0.1,
+                        help='Commitment cost for vector quantization')
 
     return parser.parse_args()
 
@@ -646,10 +741,16 @@ def main():
     args = parse_args()
     
     if args.mode == 'train':
-        
-        # Load both input and output data
-        input_data = load_continuousEmbedding(args.input_layer_embedding)
-        output_data = load_continuousEmbedding(args.output_layer_embedding)
+
+        if args.input_layer == args.output_layer:
+            input_data = load_continuousEmbedding(args.input_layer_embedding)
+            output_data = input_data.copy()
+        else:
+            # Load both input and output data
+            input_data = load_continuousEmbedding(args.input_layer_embedding)
+            output_data = load_continuousEmbedding(args.output_layer_embedding)
+
+
         # Get embedding dimensions
         input_embedding_dim = len(input_data[0][1])
         output_embedding_dim = len(output_data[0][1])
@@ -669,17 +770,21 @@ def main():
             output_dim=output_embedding_dim,
             device=device,
             use_ema=args.use_ema,
-            perplexity_weight=0.0,
+            perplexity_weight=args.perplexity_weight,
             use_sampling=args.use_sampling,
             top_k=args.top_k,
             temperature=args.temperature,
-            use_adaptive_encoder=args.use_adaptive_encoder
+            use_adaptive_encoder=args.use_adaptive_encoder,
+            fixed_alpha=args.fixed_alpha,
+            commitment_cost=args.commitment_cost
         ).to(device)
         print(new_input_embeddings_tensor.shape)
         # Reset codebook usage statistics before training
         model.reset_codebook_usage()
         # Initialize codebook
-        initialize_codebook_from_type(model, new_input_embeddings_tensor, args.initialization, args.random_vector_seed, device)
+        initialize_codebook_from_type(model, new_input_embeddings_tensor, args.initialization, args.random_vector_seed, args.input_layer, device, args.codebook_dir)
+        # clear_gpu_memory()
+
         optimizer = optim.Adam(model.parameters(), lr=5e-3, weight_decay=1e-4)
         scheduler = optim.lr_scheduler.ReduceLROnPlateau(
             optimizer, 
@@ -688,11 +793,12 @@ def main():
             patience=5,
             verbose=True
         )
+
         best_vector_map, best_model_state = training(
             train_inputs, 
             dev_inputs, 
             model,
-            num_training_updates=50,
+            num_training_updates=100,
             optimizer=optimizer,
             scheduler=scheduler,
             device=device,
@@ -746,6 +852,7 @@ def main():
         with open(inference_output_path, 'w') as f:
             json.dump(token_to_index_map, f, indent=4)
         print(f"Token to index mapping saved to {inference_output_path}")
+        analyze_s_token(token_to_index_map)
 
 if __name__ == '__main__':
     main()

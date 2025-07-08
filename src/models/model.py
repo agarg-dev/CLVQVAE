@@ -5,36 +5,6 @@ from .vector_quantizer import VectorQuantizer, VectorQuantizerEMA
 import os
 
 
-# class AdaptiveResidualEncoder(nn.Module):
-#     """Encoder that acts as an adaptive identity function with learnable residual.
-    
-#     Preserves input distribution properties while allowing gradient flow.
-#     Includes layer normalization on the transformation path for stability.
-    
-#     Args:
-#         embedding_dim (int): Dimension of the embeddings
-#     """
-#     def __init__(self, embedding_dim):
-#         super(AdaptiveResidualEncoder, self).__init__()
-#         self.embedding_dim = embedding_dim
-#         self.linear = nn.Linear(embedding_dim, embedding_dim)
-#         self.layer_norm = nn.LayerNorm(embedding_dim)
-#         self.a = nn.Parameter(torch.tensor(0.2))
-#         # Initialize as identity transform
-#         nn.init.eye_(self.linear.weight)
-#         nn.init.zeros_(self.linear.bias)
-        
-#     def forward(self, x, padding_mask=None):
-#         alpha = torch.sigmoid(self.a)
-#         # Apply transformation with normalization
-#         transformed = self.layer_norm(self.linear(x))
-#         result = (1 - alpha) * x + alpha * transformed
-#         if padding_mask is not None:
-#             result = result.masked_fill(padding_mask.unsqueeze(-1), 0.0)
-
-#         return result
-
-
 class AdaptiveResidualEncoder(nn.Module):
     """Encoder that acts as an adaptive identity function with learnable residual.
     
@@ -44,22 +14,40 @@ class AdaptiveResidualEncoder(nn.Module):
     Args:
         embedding_dim (int): Dimension of the embeddings
     """
-    def __init__(self, embedding_dim):
+    # def __init__(self, embedding_dim):
+    #     super(AdaptiveResidualEncoder, self).__init__()
+    #     self.embedding_dim = embedding_dim
+    #     self.linear = nn.Linear(embedding_dim, embedding_dim)
+    #     self.layer_norm = nn.LayerNorm(embedding_dim)
+    #     self.alpha = nn.Parameter(torch.tensor(0.2))
+        
+    #     # Initialize as identity transform
+    #     nn.init.eye_(self.linear.weight)
+    #     nn.init.zeros_(self.linear.bias)
+
+    def __init__(self, embedding_dim, fixed_alpha=None):
         super(AdaptiveResidualEncoder, self).__init__()
         self.embedding_dim = embedding_dim
         self.linear = nn.Linear(embedding_dim, embedding_dim)
         self.layer_norm = nn.LayerNorm(embedding_dim)
-        self.alpha = nn.Parameter(torch.tensor(0.2))
         
-        # Initialize as identity transform
-        nn.init.eye_(self.linear.weight)
-        nn.init.zeros_(self.linear.bias)
+        if fixed_alpha is not None:
+            self.register_buffer('alpha', torch.tensor(fixed_alpha))
+            self.is_fixed = True
+        else:
+            self.alpha = nn.Parameter(torch.tensor(0.2))
+            self.is_fixed = False
         
+    # def forward(self, x, padding_mask=None):
+    #     # Calculate mixing factor (limited to 0.0-0.5 range)
+    #     factor = 0.5
+    #     mix = torch.sigmoid(self.alpha) * factor
     def forward(self, x, padding_mask=None):
-        # Calculate mixing factor (limited to 0.0-0.5 range)
         factor = 0.5
-        mix = torch.sigmoid(self.alpha) * factor
-        
+        if self.is_fixed:
+            mix = self.alpha * factor
+        else:
+            mix = torch.sigmoid(self.alpha) * factor
         # Apply transformation with normalization
         transformed = self.layer_norm(self.linear(x))
         
@@ -164,14 +152,19 @@ class Model(nn.Module):
     """
     def __init__(self, num_embeddings, embedding_dim, output_dim=None, device=None, 
                 use_ema=True, perplexity_weight=0.01, use_sampling=True, top_k=10, temperature=1.0,
-                use_adaptive_encoder=False): 
+                use_adaptive_encoder=False, fixed_alpha=None,commitment_cost=0.1): 
 
         super(Model, self).__init__()
         # Set output_dim to embedding_dim if not provided
         if output_dim is None:
             output_dim = embedding_dim
+        # if use_adaptive_encoder:
+        #     self._ContinuousEmbedding = AdaptiveResidualEncoder(embedding_dim=embedding_dim)
+
         if use_adaptive_encoder:
-            self._ContinuousEmbedding = AdaptiveResidualEncoder(embedding_dim=embedding_dim)
+            self._ContinuousEmbedding = AdaptiveResidualEncoder(
+                embedding_dim=embedding_dim,
+                fixed_alpha=fixed_alpha)
         else:
             # Use pass-through layer
             self._ContinuousEmbedding = ContinuousEmbeddings(embedding_dim)
@@ -185,7 +178,7 @@ class Model(nn.Module):
             self._VectorQuantizer = VectorQuantizerEMA(
                 num_embeddings=num_embeddings,
                 embedding_dim=embedding_dim,
-                commitment_cost=0.1,
+                commitment_cost=commitment_cost,
                 decay=0.99,
                 epsilon=1e-5,
                 perplexity_weight=perplexity_weight,
@@ -197,6 +190,7 @@ class Model(nn.Module):
             self._VectorQuantizer = VectorQuantizer(
                 num_embeddings=num_embeddings,
                 embedding_dim=embedding_dim,
+                commitment_cost=commitment_cost,
                 perplexity_weight=perplexity_weight,
                 use_sampling=use_sampling,
                 top_k=top_k,
@@ -269,6 +263,7 @@ class Model(nn.Module):
             "min_distances": vq_output["min_distances"],
             "perplexity": vq_output.get("perplexity", None),
             "similarity_metric": vq_output.get("similarity_metric"),
+            "commit_loss": vq_output.get("commit_loss"),
             "perplexity_loss": vq_output.get("perplexity_loss")
         }
 

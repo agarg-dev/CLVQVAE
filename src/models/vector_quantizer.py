@@ -26,6 +26,7 @@ class VectorQuantizer(nn.Module):
         self._num_embeddings = num_embeddings
         self._embedding_dim = embedding_dim
         self._perplexity_weight = perplexity_weight
+        self._commitment_cost = commitment_cost
         # Sampling parameters
         self._use_sampling = use_sampling
         self._top_k = min(top_k, num_embeddings)  # Ensure top_k doesn't exceed codebook size
@@ -34,7 +35,6 @@ class VectorQuantizer(nn.Module):
         # Add counter for usage statistics
         self.register_buffer('_usage_count', torch.zeros(num_embeddings))
     
-
 
     def get_usage_stats(self):
         """
@@ -57,7 +57,6 @@ class VectorQuantizer(nn.Module):
             "total_codes": self._num_embeddings,
             "code_utilization": active_codes / self._num_embeddings,
         }
-
 
 
     def compute_similarity_metrics(self):
@@ -98,8 +97,6 @@ class VectorQuantizer(nn.Module):
             "euclidean_max_distance": float(np.max(euclidean_non_diagonal)),
         }
 
-
-
     
     def reset_usage_stats(self):
         """Reset the usage statistics."""
@@ -137,14 +134,11 @@ class VectorQuantizer(nn.Module):
         return sampled_indices, min_distances
     
 
-
-
     def forward(self, inputs):
         """
         Forward pass of the Vector Quantizer, excluding padding tokens.
         With optional sampling from top-k nearest codebook vectors.
         """
-
         inputs = inputs.to(self._embedding.weight.device)
         inputs = inputs.contiguous()
         input_shape = inputs.shape
@@ -186,29 +180,42 @@ class VectorQuantizer(nn.Module):
         # Calculate losses only for non-padding tokens
         loss_vq = F.mse_loss(quantized_valid, valid_flat_input.detach(), reduction="mean")
         loss_commit = F.mse_loss(valid_flat_input, quantized_valid.detach(), reduction="mean")
-        loss = loss_commit * 0 + loss_vq
+        loss = self._commitment_cost * loss_commit + loss_vq
+        
         # Straight-through estimator
         quantized_st = inputs + (quantized - inputs).detach()
-        # Calculate perplexity of the code distribution for non-padding tokens
-        avg_probs = torch.mean(encodings_valid, dim=0)
+        
+        # Differentiable perplexity calculation during training
+        if self.training:
+            # Create differentiable soft probabilities directly from distances
+            soft_temp = 0.2  # Temperature parameter for soft assignments
+            soft_logits = -distances / soft_temp
+            soft_probs = F.softmax(soft_logits, dim=1)
+            
+            # Use soft probabilities for differentiable perplexity calculation
+            avg_probs = torch.mean(soft_probs, dim=0)
+        else:
+            # During inference, use original hard encodings
+            avg_probs = torch.mean(encodings_valid, dim=0)
+            
+        # Calculate perplexity using the appropriate probabilities
         perplexity = torch.exp(-torch.sum(avg_probs * torch.log(avg_probs + 1e-10)))
         # Target perplexity is the maximum possible value (num_embeddings)
-        perplexity_loss = -torch.log(perplexity + 1e-10)
-        total_loss = loss + self._perplexity_weight * perplexity_loss
+        perplexity_loss = torch.log(self._num_embeddings / (perplexity + 1e-10))
+        weighted_perplexity_loss = self._perplexity_weight * perplexity_loss
+        total_loss = loss + weighted_perplexity_loss
 
         return {
             "quantized": quantized_st,
             "loss": total_loss,
+            "commit_loss": loss,
             "encoding_indices": indices_flat,
             "indices": indices,
             "min_distances": min_distances,
-            "loss_commit": loss_commit,
-            "perplexity_loss": perplexity_loss,
-            "loss_theta": 0,
+            "perplexity_loss": weighted_perplexity_loss,
             "perplexity": perplexity,
             "similarity_metric": self.compute_similarity_metrics()
         }
-
 
 
 
@@ -230,7 +237,7 @@ class VectorQuantizerEMA(nn.Module):
         top_k (int): Number of top candidates to consider for sampling
         temperature (float): Temperature parameter for sampling (higher = more exploration)
     """
-    def __init__(self, num_embeddings, embedding_dim, perplexity_weight=0.1, commitment_cost=0.0, 
+    def __init__(self, num_embeddings, embedding_dim, perplexity_weight=0.01, commitment_cost=0.0, 
                 decay=0.99, epsilon=1e-5, use_sampling=True, top_k=10, temperature=1.0):
         super(VectorQuantizerEMA, self).__init__()
         self._num_embeddings = num_embeddings
@@ -357,22 +364,26 @@ class VectorQuantizerEMA(nn.Module):
     def forward(self, inputs):
         """
         Forward pass of the Vector Quantizer with EMA updates, excluding padding tokens.
-        With optional sampling from top-k nearest codebook vectors.
+        With differentiable perplexity calculation.
         """
         inputs = inputs.to(self._embedding.weight.device)
         inputs = inputs.contiguous()
         input_shape = inputs.shape
+        
         # Flatten input except for the last dimension
         flat_input = inputs.view(-1, self._embedding_dim)
+        
         # Create a padding mask - use vector norm to identify padding vectors
         valid_mask = torch.norm(flat_input, dim=1) > 1e-6
         valid_flat_input = flat_input[valid_mask]
+        
         # Calculate distances between valid inputs and embedding vectors
         distances = (
             torch.sum(valid_flat_input ** 2, dim=1, keepdim=True)
             + torch.sum(self._embedding.weight ** 2, dim=1)
             - 2 * torch.matmul(valid_flat_input, self._embedding.weight.t())
         )
+        
         # Choose between sampling and deterministic selection
         if self._use_sampling and self.training:
             # Sample from top-k during training
@@ -380,62 +391,88 @@ class VectorQuantizerEMA(nn.Module):
         else:
             # Default behavior: deterministic selection of nearest vector
             min_distances_valid, encoding_indices_valid = torch.min(distances, dim=1)
+        
         encodings_valid = F.one_hot(encoding_indices_valid, self._num_embeddings).float()
+        
         # Update usage statistics only for valid tokens
         usage_count = torch.sum(encodings_valid, dim=0)
         self._usage_count += usage_count
+        
         # Update the embedding vectors using EMA during training (only for valid tokens)
         if self.training:
             # Update cluster size EMA
             cluster_size = torch.sum(encodings_valid, dim=0)
             self._ema_cluster_size = self._ema_cluster_size * self._decay + (1 - self._decay) * cluster_size
+            
             # Laplace smoothing of the cluster size
             n = torch.sum(self._ema_cluster_size.data)
             self._ema_cluster_size = (
                 (self._ema_cluster_size + self._epsilon) /
                 (n + self._num_embeddings * self._epsilon) * n
             )
+            
             # Update embedding EMA
             dw = torch.matmul(encodings_valid.t(), valid_flat_input)
             self._ema_w = self._ema_w * self._decay + (1 - self._decay) * dw
+            
             # Normalize embedding weights by cluster size
             self._embedding.weight.data = self._ema_w / self._ema_cluster_size.unsqueeze(1)
+        
         # Quantize the valid inputs
         quantized_valid = self._embedding(encoding_indices_valid)
+        
         # Initialize full-sized outputs with zeros
         quantized_flat = torch.zeros_like(flat_input)
         indices_flat = torch.zeros(flat_input.shape[0], dtype=torch.long, device=flat_input.device)
         min_distances_flat = torch.zeros(flat_input.shape[0], device=flat_input.device)
+        
         # Place valid outputs in the correct positions
         quantized_flat[valid_mask] = quantized_valid
         indices_flat[valid_mask] = encoding_indices_valid
         min_distances_flat[valid_mask] = min_distances_valid
+        
         # Reshape to original dimensions
         quantized = quantized_flat.view(input_shape)
         indices = indices_flat.view(input_shape[:-1])
         min_distances = min_distances_flat.view(input_shape[:-1])
+        
         # Calculate commitment loss only for non-padding tokens
         loss_commit = F.mse_loss(valid_flat_input, quantized_valid.detach(), reduction="mean")
-        loss = self._commitment_cost * loss_commit
+        commit_loss = self._commitment_cost * loss_commit
+        
         # Straight-through estimator
         quantized_st = inputs + (quantized - inputs).detach()
-        # Calculate perplexity of the code distribution for non-padding tokens
-        avg_probs = torch.mean(encodings_valid, dim=0)
+        
+        # NEW: Differentiable perplexity calculation
+        if self.training:
+            # Create differentiable soft probabilities directly from distances
+            soft_temp = 0.2  # Temperature parameter
+            soft_logits = -distances / soft_temp
+            soft_probs = F.softmax(soft_logits, dim=1)
+            
+            # Use soft probabilities for differentiable perplexity calculation
+            avg_probs = torch.mean(soft_probs, dim=0)
+        else:
+            # During inference, use original hard encodings
+            avg_probs = torch.mean(encodings_valid, dim=0)
+        
+        # Calculate perplexity as before, but now with differentiable avg_probs during training
         perplexity = torch.exp(-torch.sum(avg_probs * torch.log(avg_probs + 1e-10)))
-        perplexity_loss = -torch.log(perplexity + 1e-10)
-        total_loss = loss + self._perplexity_weight * perplexity_loss
+        
+        # Use KL divergence formulation
+        perplexity_loss = torch.log(self._num_embeddings / (perplexity + 1e-10))
+        weighted_perplexity_loss = self._perplexity_weight * perplexity_loss
+        total_loss = commit_loss + weighted_perplexity_loss
         
         return {
             "quantized": quantized_st,
             "loss": total_loss,
+            "commit_loss": commit_loss,
             "encoding_indices": indices_flat,
             "indices": indices,
             "min_distances": min_distances,
             "loss_commit": loss_commit,
-            "perplexity_loss": perplexity_loss,
-            "loss_theta": 0,
+            "perplexity_loss": weighted_perplexity_loss,
             "perplexity": perplexity,
             "similarity_metric": self.compute_similarity_metrics()
         }
-
-
