@@ -1,0 +1,1 @@
+Classify the topic of the following article. Your vocabulary only includes 0, 1, 2, and 3. Respond with 0 for World, 1 for Sports, 2 for Business, or 3 for Sci/Tech. ARTICLE: {review_text_goes_here}. CLASSIFICATION: 

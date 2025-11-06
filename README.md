@@ -1,67 +1,105 @@
 # CLVQ-VAE: Cross-Layer Discrete Concept Discovery for Interpreting Language Models
 
-This repository contains the implementation of CLVQ-VAE (Cross-Layer Vector Quantized Variational Autoencoder), a framework designed to discover discrete concepts between neural network layers in language models.
+This repository contains the implementation of CLVQ-VAE (Cross-Layer Vector Quantized Variational Autoencoder), a framework for discovering interpretable concepts in language models by mapping representations across layers through vector quantization.
 
 ## Overview
 
-CLVQ-VAE maps representations from a lower layer to a higher layer through a discrete bottleneck, enabling the identification of discrete concepts that characterize transformations in a model's processing hierarchy. Our approach combines:
-
-- An adaptive residual encoder that preserves input while learning minimal transformations
-- A vector quantizer with EMA updates and controlled stochastic sampling
-- A transformer decoder that reconstructs higher-layer representations
-
-## Key Features
-
-- **Temperature-based sampling** from top-k nearest codebook vectors during quantization
-- **Scaled-spherical k-means++** initialization for codebook vectors
-- **Cross-layer concept discovery** through reconstruction objectives between layers
+CLVQ-VAE addresses limitations in current interpretability methods by:
+- Operating in discrete space with clear conceptual boundaries (unlike continuous SAEs)
+- Analyzing cross-layer transformations to capture how concepts evolve
+- Collapsing duplicated features in transformer residual streams into compact, interpretable concept vectors
 
 ## Repository Structure
 
 ```
-CLVQVAE/
-├── scripts/
-│   ├── main.sh                # Main script for running the full pipeline
-│   └── faithfulness.sh        # Script for faithfulness evaluation
-├── src/
-│   ├── models/                # Model architecture implementations
-│   ├── main.py                # Main training and inference code
-│   ├── extract_codebook.py    # Utility for extracting codebook vectors
-│   ├── latent_explanation_for_salients.py # Generate explanations
-│   ├── analyze_latent_concept_movie.py    # Concept analysis
-│   └── faithfulness_evaluation.py         # Faithfulness evaluation
-└── data/                      # Directory for datasets and embeddings
+├── data/                          # Dataset directory
+│   ├── agnews/                    # AG News dataset
+│   ├── eraser-movie/              # ERASER-Movie dataset
+│   └── jigsaw/                    # Jigsaw Toxicity dataset
+├── scripts/                       # Execution scripts
+│   ├── main.sh                    # Main training pipeline
+│   ├── faithfulness.sh            # Faithfulness evaluation
+│   ├── llm_judge_evaluation.sh    # LLM-as-a-judge evaluation
+│   └── analyze_agreement.sh       # Inter-judge agreement analysis
+└── src/                           # Source code
+    ├── models/                    # Model architectures
+    ├── evaluation/                # Evaluation scripts
+    ├── IG_backpropagation/        # Integrated Gradients for saliency
+    └── embedding_extractor/       # Embedding extraction utilities
 ```
+
+## Installation
+
+```bash
+# Install dependencies
+pip install torch transformers neurox
+pip install scikit-learn numpy pandas matplotlib seaborn wordcloud
+```
+
+## Dataset Preparation
+
+Download the prepared datasets from **this Dropbox link** and place them in the `data/` directory.
 
 ## Usage
 
-### Setup
+### Training
 
-1. Clone the repository
-2. Install the required dependencies
-3. Prepare your data directory with embeddings
-
-### Prepare your dataset:
-
-The dataset information can be downloaded from this [Dropbox link](https://www.dropbox.com/scl/fo/hre4iczg0dpz2vs5p2vcx/AGg_naici_1m2Vt3waLoTOg?rlkey=myzedcpmjywm7h8ksjogkgg7x&st=w4kojso4&dl=0)
-
-### Running the Full Pipeline
+Run the main training pipeline:
 
 ```bash
-# Run the main pipeline
 bash scripts/main.sh
+```
 
-# Run faithfulness evaluation
+### Configuration
+
+Key parameters in `main.sh`:
+* `datasetName`: Dataset name ("eraser", "jigsaw", "agnews")
+* `input_layer`: Lower layer index (e.g., 8 for BERT/RoBERTa)
+* `output_layer`: Higher layer index (e.g., 12 for BERT/RoBERTa)
+* `temperature`: Sampling temperature (default: 1.0)
+* `top_k`: Number of top codebook vectors (default: 5)
+* `initialization`: Codebook initialization ("spherical", "kmeans", or "random")
+* `K`: Codebook size (default: 400)
+
+### Recommended Layer Pairs
+
+* BERT/RoBERTa (12 layers): 8→12
+* LLaMA-2-7B (32 layers): 28→32
+* Qwen2.5-3B (36 layers): 32→36
+
+## Evaluation
+
+Faithfulness evaluation:
+
+```bash
 bash scripts/faithfulness.sh
 ```
 
-## Configuration
+LLM-as-a-judge evaluation:
 
-The main script accepts several parameters that can be modified:
+```bash
+bash scripts/llm_judge_evaluation.sh
+```
 
-- `datasetName`: Name of the dataset
-- `input_layer`/`output_layer`: Layer indices for cross-layer analysis
-- `temperature`: Temperature parameter for sampling (default: 1.0)
-- `top_k`: Number of top vectors to sample from (default: 5)
-- `initialization`: Codebook initialization method (default: "spherical")
-- `K`: Number of codebook vectors (default: 400)
+Inter-judge agreement analysis:
+
+```bash
+bash scripts/analyze_agreement.sh
+```
+
+## Supported Models
+
+* RoBERTa-base (fine-tuned)
+* BERT-base (fine-tuned)
+* LLaMA-2-7B (zero-shot)
+* Qwen2.5-3B-Instruct (zero-shot)
+
+## Supported Datasets
+
+* ERASER-Movie: Sentiment classification (binary)
+* Jigsaw Toxicity: Toxicity detection (binary)
+* AG News: News topic classification (4 classes)
+
+## License
+
+This project is licensed under the MIT License.
