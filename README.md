@@ -38,7 +38,7 @@ pip install scikit-learn numpy pandas matplotlib seaborn wordcloud
 
 ## Dataset Preparation
 
-Download the prepared datasets from **this Dropbox link** and place them in the `data/` directory.
+Download the prepared datasets from this Dropbox link (https://www.dropbox.com/scl/fo/hre4iczg0dpz2vs5p2vcx/AGg_naici_1m2Vt3waLoTOg?rlkey=myzedcpmjywm7h8ksjogkgg7x&e=1&st=w4kojso4&dl=0) and place them in the `data/` directory.
 
 ## Usage
 
