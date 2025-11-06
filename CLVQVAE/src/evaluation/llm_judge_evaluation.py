@@ -105,7 +105,7 @@ def retry(retries=3, delay=10, backoff=2):
 def call_llm_judge(prompt, model_name="gpt-4o-mini"):
     """Call OpenAI GPT model for evaluation."""
     try:
-        client = OpenAI(api_key='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')
+        client = OpenAI()
 
         final_prompt = prompt + """
 
@@ -128,7 +128,6 @@ def call_claude_haiku_judge(prompt, model_name="claude-3-5-haiku-latest"):
     """Call Claude Haiku model for evaluation."""
     try:
         client = anthropic.Anthropic(
-            api_key='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',
             timeout=60.0
         )
 
@@ -167,7 +166,7 @@ CRITICAL: You must respond with ONLY valid JSON in the exact format requested ab
 def call_gemini_judge(prompt, model_name="gemini-1.5-flash-latest"):
     """Call Google Gemini model for evaluation."""
     try:
-        genai.configure(api_key='AIzaSyBG7O0O-m-iZdqFRWMe--NVQhEBcaBVmHM')
+        genai.configure()
         model = genai.GenerativeModel(
             model_name,
             generation_config={"response_mime_type": "application/json"}
