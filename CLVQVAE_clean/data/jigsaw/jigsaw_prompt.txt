@@ -1,0 +1,1 @@
+Classify the toxicity of the following comment. Your vocabulary only include 0 and 1. Respond with 1 for toxic or 0 for not toxic. COMMENT: {review_text_goes_here}. CLASSIFICATION: 

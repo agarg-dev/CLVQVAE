@@ -1,0 +1,1 @@
+Classify the sentiment of the following movie review. Your vocabulary only include 0 and 1. Respond with 1 for positive sentiment or 0 for negative sentiment. REVIEW: {review_text_goes_here}. CLASSIFICATION: 
