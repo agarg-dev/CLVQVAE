@@ -100,6 +100,14 @@ bash scripts/analyze_agreement.sh
 * Jigsaw Toxicity: Toxicity detection (binary)
 * AG News: News topic classification (4 classes)
 
-## License
 
-This project is licensed under the MIT License.
+## Citation
+
+```bibtex
+@inproceedings{garg2026clvqvae,
+  title     = {Cross-Layer Discrete Concept Discovery for Interpreting Language Models},
+  author    = {Garg, Ankur and Yu, Xuemin and Sajjad, Hassan and Ebrahimi Kahou, Samira},
+  year      = {2025}
+}
+```
+
